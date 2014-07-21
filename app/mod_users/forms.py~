@@ -1,0 +1,26 @@
+#############################################################
+# 
+# Author: Peter Nguyen
+# Last Update: 07/20/2014
+# Description: Handle the Forms inside this module
+# 
+#############################################################
+
+from flask.ext.wtf import Form, RecaptchaField
+from wtforms import TextField, PasswordField, BooleanField
+from wtforms.validators import Required, EqualTo, Email
+
+class LoginForm(Form):
+  email = TextField('Email address', [Required(), Email()])
+  password = PasswordField('Mật Khầu', [Required()])
+
+class RegisterForm(Form):
+  name = TextField('Tên Đăng NHập', [Required()])
+  email = TextField('Email address', [Required(), Email()])
+  password = PasswordField('Mật Khẩu', [Required()])
+  confirm = PasswordField('Nhập lại Mật Khẩu', [
+      Required(),
+      EqualTo('password', message='Mật Khẩu phải trùng nhau')
+      ])
+  accept_tos = BooleanField('MÌnh chấp nhận điều khoản sử dụng.', [Required()])
+  recaptcha = RecaptchaField()

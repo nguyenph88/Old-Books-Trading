@@ -54,6 +54,16 @@ def index():
     """Just a generic index page to show."""
     return render_template('index.html')
 
+@app.route('/index.html')
+def indexhtml():
+    """Just a generic index page to show."""
+    return render_template('index.html')
+
+@app.route('/about-us.html')
+def about_us():
+    """Just a generic index page to show."""
+    return render_template('about-us.html')
+
 
 @app.errorhandler(404)
 def not_found(error):
