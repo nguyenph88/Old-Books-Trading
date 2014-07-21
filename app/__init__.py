@@ -77,5 +77,11 @@ def not_found(error):
 from app.mod_users.views import mod as usersModule
 app.register_blueprint(usersModule)
 
+from app.mod_info.views import mod as infoModule
+app.register_blueprint(infoModule)
+
+from app.mod_newlistings.views import mod as newlistingsModule
+app.register_blueprint(newlistingsModule)
+
 # Commend this out if we are not manually create database in "shell.py"
 #db.create_all()

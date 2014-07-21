@@ -15,10 +15,10 @@
           <nav>
             <ul class="nav nav-pills nav-top">
               <li>
-                <a href="about-us.html"><i class="icon-angle-right"></i>Đăng Ký / Đăng Nhập</a>
+                <a href="{{ url_for('users.dangnhap') }}"><i class="icon-angle-right"></i>Đăng Ký / Đăng Nhập</a>
               </li>
               <li>
-                <a href="contact-us.html"><i class="icon-angle-right"></i>Liên hệ</a>
+                <a href="{{ url_for('info.lienhe') }}"><i class="icon-angle-right"></i>Liên hệ</a>
               </li>
               <li class="phone">
                 <span><i class="icon-phone"></i>Skype: abcdef</span>
@@ -36,20 +36,20 @@
             <ul class="nav nav-pills nav-main" id="mainMenu">
 
               <li class="dropdown active">
-                <a href="index.html">
+                <a href="{{ url_for('index') }}">
                   Trang Chủ
                 </a>
               </li>
               
-              <li>
-                <a href="contact-us.html">Sách MỚi Đăng</a>
+              <li class="dropdown">
+                <a href="{{ url_for('newlistings.newlistings') }}">Sách MỚi Đăng</a>
               </li>
               
-              <li>
-                <a href="about-us.html">Đăng Sách</a>
+              <li class="dropdown">
+                <a href="{{ url_for('users.dangsach') }}">Đăng Sách</a>
               </li>
 
-              <li>
+              <li class="dropdown">
                 <a href="contact-us.html">Tìm Sách</a>
               </li>
                        
@@ -59,11 +59,11 @@
                   <i class="icon-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="portfolio-4-columns.html">Giới Thiệu</a></li>
-                  <li><a href="portfolio-2-columns.html">Hướng Dẫn Sử Dụng</a></li>
-                  <li><a href="portfolio-4-columns.html">Hỗ Trợ</a></li>
-                  <li><a href="portfolio-single-project.html">Liên Hệ</a></li>
-                  <li><a href="portfolio-3-columns.html">Quyền Lợi và Trách Nhiệm</a></li>
+                  <li><a href="{{ url_for('info.gioithieu') }}">Giới Thiệu</a></li>
+                  <li><a href="{{ url_for('info.huongdansudung') }}">Hướng Dẫn Sử Dụng</a></li>
+                  <li><a href="{{ url_for('info.hotro') }}">Hỗ Trợ</a></li>
+                  <li><a href="{{ url_for('info.lienhe') }}">Liên Hệ</a></li>
+                  <li><a href="{{ url_for('info.quyenloitrachnhiem') }}">Quyền Lợi và Trách Nhiệm</a></li>
                 </ul>
 
               <li class="dropdown">

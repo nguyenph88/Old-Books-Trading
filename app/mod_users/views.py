@@ -21,7 +21,7 @@ mod = Blueprint('users', __name__, url_prefix='/users')
 
 @mod.route('/me/')
 @requires_login
-def home():
+def profile():
   return render_template("users/profile.html", user=g.user)
 
 @mod.before_request
@@ -33,8 +33,8 @@ def before_request():
   if 'user_id' in session:
     g.user = User.query.get(session['user_id'])
 
-@mod.route('/login/', methods=['GET', 'POST'])
-def login():
+@mod.route('/dang-nhap/', methods=['GET', 'POST'])
+def dangnhap():
   """
   Login form
   """
@@ -74,3 +74,7 @@ def register():
     # redirect user to the 'home' method of the user module.
     return redirect(url_for('users.home'))
   return render_template("users/register.html", form=form)
+
+@mod.route('/dang-sach/')
+def dangsach():
+  return render_template("users/dang-sach.html")
