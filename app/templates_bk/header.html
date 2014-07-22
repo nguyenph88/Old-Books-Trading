@@ -1,0 +1,83 @@
+        <div class="container">
+          <h1 class="logo">
+            <a href="index.html">
+              <img alt="Porto" src="/static/img/logo.png">
+            </a>
+          </h1>
+          <div class="search">
+            <form class="form-search" id="searchForm" action="page-search-results.html" method="get">
+              <div class="control-group">
+                <input type="text" class="input-medium search-query" name="q" id="q" placeholder="Tìm kiếm...">
+                <button class="search" type="submit"><i class="icon-search"></i></button>
+              </div>
+            </form>
+          </div>
+          <nav>
+            <ul class="nav nav-pills nav-top">
+              <li>
+                <a href="{{ url_for('users.dangnhap') }}"><i class="icon-angle-right"></i>Đăng Ký / Đăng Nhập</a>
+              </li>
+              <li>
+                <a href="{{ url_for('info.lienhe') }}"><i class="icon-angle-right"></i>Liên hệ</a>
+              </li>
+              <li class="phone">
+                <span><i class="icon-phone"></i>Skype: abcdef</span>
+              </li>
+            </ul>
+          </nav>
+          <div class="social-icons">
+            <ul class="social-icons">
+              <li class="facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook">Facebook</a></li>
+              <li class="twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter">Twitter</a></li>
+              <li class="linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin">Linkedin</a></li>
+            </ul>
+          </div>
+          <nav>
+            <ul class="nav nav-pills nav-main" id="mainMenu">
+
+              <li class="dropdown active">
+                <a href="{{ url_for('index') }}">
+                  Trang Chủ
+                </a>
+              </li>
+              
+              <li class="dropdown">
+                <a href="{{ url_for('newlistings.newlistings') }}">Sách MỚi Đăng</a>
+              </li>
+              
+              <li class="dropdown">
+                <a href="{{ url_for('users.dangsach') }}">Đăng Sách</a>
+              </li>
+
+              <li class="dropdown">
+                <a href="contact-us.html">Tìm Sách</a>
+              </li>
+                       
+              <li class="dropdown">
+                <a class="dropdown-toggle" href="#">
+                  Thông Tin
+                  <i class="icon-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ url_for('info.gioithieu') }}">Giới Thiệu</a></li>
+                  <li><a href="{{ url_for('info.huongdansudung') }}">Hướng Dẫn Sử Dụng</a></li>
+                  <li><a href="{{ url_for('info.hotro') }}">Hỗ Trợ</a></li>
+                  <li><a href="{{ url_for('info.lienhe') }}">Liên Hệ</a></li>
+                  <li><a href="{{ url_for('info.quyenloitrachnhiem') }}">Quyền Lợi và Trách Nhiệm</a></li>
+                </ul>
+
+              <li class="dropdown">
+                <a class="dropdown-toggle" href="#">
+                  Cá Nhân
+                  <i class="icon-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="portfolio-2-columns.html">Thay Đổi</a></li>
+                  <li><a href="portfolio-single-project.html">Sách đã đăng</a></li>
+                  <li><a href="portfolio-3-columns.html">Đăng Xuất</a></li>
+                </ul>
+
+  
+            </ul>
+          </nav>
+        </div>
