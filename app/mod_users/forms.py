@@ -11,8 +11,9 @@ from wtforms import TextField, PasswordField, BooleanField
 from wtforms.validators import Required, EqualTo, Email
 
 class LoginForm(Form):
-  email = TextField('Email address', [Required(), Email()])
+  email = TextField('Emailaddress', [Required(), Email()])
   password = PasswordField('Password', [Required()])
+  remember_me = BooleanField('remember_me', default = False)
 
 class RegisterForm(Form):
   name = TextField('NickName', [Required()])

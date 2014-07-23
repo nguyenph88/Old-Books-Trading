@@ -22,6 +22,9 @@ SECRET_KEY = 'conCOBEbe!@#anthit456conCHIMBUbu'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'app.db')
 DATABASE_CONNECT_OPTIONS = {}
 
+# Migration directory
+SQLALCHEMY_MIGRATE_REPO = os.path.join(_basedir, 'db_repository')
+
 # I'm not sure what it is, someone says 2, others say 8
 THREADS_PER_PAGE = 2
 

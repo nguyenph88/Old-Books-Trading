@@ -21,7 +21,7 @@ mod = Blueprint('users', __name__, url_prefix='/users')
 
 @mod.route('/me/')
 @requires_login
-def profile():
+def home():
   return render_template("users/profile.html", user=g.user)
 
 @mod.before_request
@@ -35,6 +35,7 @@ def before_request():
 
 @mod.route('/dang-nhap/', methods=['GET', 'POST'])
 def dangnhap():
+#@mod.loginhandler
   """
   Login form
   """
@@ -47,6 +48,8 @@ def dangnhap():
       # the session can't be modified as it's signed, 
       # it's a safe place to store the user id
       session['user_id'] = user.id
+      session['remember_me'] = form.remember_me.data
+
       flash('Welcome %s' % user.name)
       return redirect(url_for('users.home'))
     flash('Wrong email or password', 'error-message')

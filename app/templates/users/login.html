@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="action">
                         <div class="col-sm-12">
-                            <h1 class="title">Dang Nhap</h1>
+                            <h1 class="title">Đăng Nhập</h1>
                             <p>Tham gia cùng chúng mình bạn sẽ luôn tìm thấy những cuốn sách mà bạn mong muốn với giá rẻ nhất. Ngoài ra bạn còn chủ động trong việc hẹn thời gian và nơi giao dịch. Mọi thứ đều miễn phí!!!</p>
                         </div>
                      </div>
@@ -22,20 +22,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center">
-                    <img src="images/aboutus/5.png" class="margin-bottom" alt="">
-                        <h1>Chưa là <strong>Thành viên?</strong></h1>
-                        <p class="lead">Tham gia ngay với chúng mình bạn sẽ luôn tìm được những cuốn sách hữu ích với giá cực rẻ, tại nơi gần nhất.</p>
-                        <a href="{{ url_for('users.register') }}" class="btn btn-large pull-bottom">Đăng Ký!</a> <span class="arrow hl hidden-phone" style="top: 10px;"></span>
-
+                    <img src="../../static/images/aboutus/5.png" class="margin-bottom" alt="">
+                        <h1>Chưa là <strong>Thành viên?</strong><a href="{{ url_for('users.register') }}"> Đăng Ký</a> ngay!</h1>
                         <h2><strong>Đăng ký rồi?</strong> Đăng nhập ngay</h2>
-	                      {% from "forms/macros.html" import render_field %}
+	                      
 	                      <form method="POST" action="." class="form">
-	                        {{ form.csrf_token }}
-	                        {{ render_field(form.email, class="input text") }}
-	                        {{ render_field(form.password, class="input text") }}
-	                        <input type="submit" value="Login">
+                            {{ form.csrf_token }}
+                            {{ form.hidden_tag() }}
+                            <center>
+                            <table style="width:300px">
+                            <tr>
+                              <td><h2>Địa chỉ email:</h2></td>
+                              <td>{{ form.email }} </td>
+                              {% for error in form.email.errors %}
+                              <span style="color: red;">[{{error}}]</span>
+                              {% endfor %}<br>
+                            </tr>
+                            <tr>
+                              <td><h2>Mật Khẩu:</h2></td>
+                              <td>{{ form.password }}</td>
+                            </tr>
+                            <tr>
+                              <td><h2>Ghi nhớ:</h2></td>
+                              <td>{{ form.remember_me }}</td>
+                            </tr>
+                            </table>
+                            </center> 
+	                        <input type="submit" value="Đăng Nhập">
 	                      </form>
-	                      <a href="#">Quên mật khẩu???</a>
+	                      <h2><a href="#">  Quên mật khẩu???</a></h2>
+                          </br>
 
                 </div>
             </div>
