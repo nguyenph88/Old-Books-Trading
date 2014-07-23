@@ -35,7 +35,6 @@ def before_request():
 
 @mod.route('/dang-nhap/', methods=['GET', 'POST'])
 def dangnhap():
-#@mod.loginhandler
   """
   Login form
   """
@@ -48,6 +47,7 @@ def dangnhap():
       # the session can't be modified as it's signed, 
       # it's a safe place to store the user id
       session['user_id'] = user.id
+      session['username'] = user.name
       session['remember_me'] = form.remember_me.data
 
       flash('Welcome %s' % user.name)
@@ -69,8 +69,9 @@ def register():
     db.session.add(user)
     db.session.commit()
 
-    # Log the user in, as he now has an id
+    # Log the user in, as he now has an id and name
     session['user_id'] = user.id
+    session['username'] = user.name
 
     # flash will display a message to the user
     flash('Thanks for registering')
@@ -81,3 +82,8 @@ def register():
 @mod.route('/dang-sach/')
 def dangsach():
   return render_template("users/dang-sach.html")
+
+@mod.route('/dang-xuat/')
+def dangxuat():
+  session.clear()
+  return render_template("users/dang-xuat.html")

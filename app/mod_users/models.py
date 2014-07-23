@@ -13,7 +13,7 @@ import string, random
 
 class User(db.Model):
 
-    __tablename__ = 'users_user'
+    __tablename__ = 'Users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
     email = db.Column(db.String(120), unique=True)
@@ -21,6 +21,8 @@ class User(db.Model):
     role = db.Column(db.SmallInteger, default=USER.USER)
     status = db.Column(db.SmallInteger, default=USER.NEW)
     activation_code = db.Column(db.String(12), unique=True)
+    # backref indicates that table Book can call the related user who posted by book.author
+    books = db.relationship('Book', backref = 'author', lazy = 'dynamic')
 
     def __init__(self, name=None, email=None, password=None):
       self.name = name
@@ -39,3 +41,26 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % (self.name)
+
+
+class Book(db.Model):
+    __tablename__ = 'Books'
+    id = db.Column(db.Integer, primary_key = True)
+    tensach = db.Column(db.String(100))
+    tacgia = db.Column(db.String(100))
+    truong = db.Column(db.String(100))
+    chuyennganh = db.Column(db.String(100))
+    giaovien = db.Column(db.String(100))
+    giaban = db.Column(db.SmallInteger, default=0)
+    tinhtrang = db.Column(db.String(100))
+    thoigiandang = db.Column(db.DateTime)
+
+    noigapmat = db.Column(db.String(300))
+    thoigiangapmat = db.Column(db.String(200))
+    lienhe = db.Column(db.String(200))
+    # link to the user who posted this book
+    # Foreign Key linked to a table then a specific field
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+
+    def __repr__(self):
+        return '<Post %r>' % (self.body)

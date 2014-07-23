@@ -11,7 +11,7 @@
 import os
 import sys
 
-from flask import Flask, render_template
+from flask import Flask, render_template, g, session
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -49,10 +49,19 @@ if not app.config['DEBUG']:
 ############################
 ### Handle simple routes ###
 ############################
+def check_authenticate():
+    usr = ""
+    is_authenticated = False
+    if 'user_id' in session:
+        usr = session['username']
+        is_authenticated = True
+    return is_authenticated, usr
+
 @app.route('/')
 def index():
     """Just a generic index page to show."""
-    return render_template('index.html')
+    is_authenticated, usr = check_authenticate()
+    return render_template("index.html", is_auth=is_authenticated, username=usr)
 
 @app.route('/index.html')
 def indexhtml():
@@ -63,7 +72,6 @@ def indexhtml():
 def about_us():
     """Just a generic index page to show."""
     return render_template('about-us.html')
-
 
 @app.errorhandler(404)
 def not_found(error):

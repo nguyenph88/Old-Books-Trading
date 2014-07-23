@@ -5,7 +5,11 @@
                    <div class="social-icons pull-right">
 
                         <ul class="nav nav-pills">
-                            <li><a href="{{ url_for('users.dangnhap') }}" style="font-family:verdana;font-size:12px;"> > Đăng Ký / Đăng Nhập&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                            {% if is_auth %}
+                                <li><a href="{{ url_for('users.home') }}" style="font-family:verdana;font-size:12px;color:black;"> > Xin chào <font color="red">{{ username }}</font>,&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                            {% else %}
+                                <li><a href="{{ url_for('users.dangnhap') }}" style="font-family:verdana;font-size:12px;"> > Đăng Ký / Đăng Nhập&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                            {% endif %}
                             <li><a href=""><i class="fa fa-facebook"></i></a></li>
                             <li><a href=""><i class="fa fa-twitter"></i></a></li>
                             <li><a href=""><i class="fa fa-google-plus"></i></a></li>
@@ -48,7 +52,7 @@
                             <ul role="menu" class="sub-menu">
                                 <li><a href="blog.html">Thay Đổi Thông Tin</a></li>
                                 <li><a href="blogtwo.html">Sách Đã Đăng</a></li>
-                                <li><a href="blogone.html">Đăng Xuất</a></li>
+                                <li><a href="{{ url_for('users.dangxuat') }}">Đăng Xuất</a></li>
                             </ul>
                         </li>
                     </ul>
