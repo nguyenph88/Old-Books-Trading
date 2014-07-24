@@ -13,12 +13,17 @@ import sys
 
 from flask import Flask, render_template, g, session
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.login import LoginManager, login_required
 
 app = Flask(__name__)
 app.config.from_object('config')
 
 # Initialize the database, which will be using through all module using "from app import db"
 db = SQLAlchemy(app)
+
+# Initialize login manager to manager user session login
+lm = LoginManager()
+lm.init_app(app)
 
 ############################
 ### Configure Secret Key ###
@@ -57,21 +62,12 @@ def check_authenticate():
         is_authenticated = True
     return is_authenticated, usr
 
+@app.route('/index.html')
 @app.route('/')
 def index():
     """Just a generic index page to show."""
     is_authenticated, usr = check_authenticate()
     return render_template("index.html", is_auth=is_authenticated, username=usr)
-
-@app.route('/index.html')
-def indexhtml():
-    """Just a generic index page to show."""
-    return render_template('index.html')
-
-@app.route('/about-us.html')
-def about_us():
-    """Just a generic index page to show."""
-    return render_template('about-us.html')
 
 @app.errorhandler(404)
 def not_found(error):

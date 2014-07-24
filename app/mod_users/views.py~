@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #############################################################
 # 
 # Author: Peter Nguyen
@@ -10,7 +9,7 @@
 
 
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
-from flask.ext.login import login_required, login_user, logout_user
+from flask.ext.login import login_required, login_user
 from werkzeug import check_password_hash, generate_password_hash
 
 from app import db, lm
@@ -29,11 +28,7 @@ mod = Blueprint('users', __name__, url_prefix='/users')
 lm.login_view = 'users.dangnhap'
 
 # Display this message when user not login and try to connect to #login_required
-lm.login_message = u"Xin vui lòng đăng nhập để tiếp tục."
-
-###################################
-########## View Handling ##########
-###################################
+login_manager.login_message = u"Bonvolu ensaluti por uzi tio paĝo."
 
 @lm.user_loader
 def load_user(id):
@@ -42,7 +37,7 @@ def load_user(id):
 @mod.route('/me/')
 @login_required
 def home():
-  return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.name)
+  return render_template("users/profile.html", user=g.user)
 
 @mod.before_request
 def before_request():
@@ -91,10 +86,6 @@ def register():
   """
   Registration Form
   """
-  # If user is already login then redirect user to the profile page
-  if g.user is not None and g.user.is_authenticated():
-    return redirect(url_for('users.home'))
-  # Otherwise bring up the register form  
   form = RegisterForm(request.form)
   if form.validate_on_submit():
     # create an user instance not yet stored in the database
@@ -120,6 +111,5 @@ def dangsach():
 
 @mod.route('/dang-xuat/')
 def dangxuat():
-  logout_user()
   session.clear()
   return render_template("users/dang-xuat.html")
