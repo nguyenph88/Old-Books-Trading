@@ -2,7 +2,7 @@
 #############################################################
 # 
 # Author: Peter Nguyen
-# Last Update: 07/18/2014
+# Last Update: 07/22/2014
 # Description:   - Define how each route is handled
 #                - Handle all http/get/post requests
 # 
