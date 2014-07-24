@@ -1,6 +1,6 @@
 #############################################################
 # 
-# Author: Peter Nguyen, duong binh hoc
+# Author: Peter Nguyen, duong binh hoc  
 # Last Update: 07/18/2014
 # Description: Call this file in order to start the app
 # 
