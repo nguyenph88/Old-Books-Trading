@@ -114,13 +114,30 @@ def register():
     return redirect(url_for('users.home'))
   return render_template("users/register.html", form=form)
 
+@mod.route('/<nickname>')
+@login_required
+def thanhvien(nickname):
+    user = User.query.filter_by(name = nickname).first()
+    if user == None:
+        flash('User ' + nickname + ' not found.')
+        return redirect(url_for('index'))
+    return render_template('users/thanh-vien.html', user = user)
+
 @mod.route('/dang-sach/')
 def dangsach():
   form = RegisterForm(request.form)
   return render_template("users/dang-sach.html", form=form)
 
 @mod.route('/dang-xuat/')
+@login_required
 def dangxuat():
   logout_user()
   session.clear()
   return render_template("users/dang-xuat.html")
+
+@mod.route('/thay-doi-thong-tin/')
+@login_required
+def thaydoithongtin():
+  #form = RegisterForm(request.form)
+  #return render_template("users/thay-doi-thong-tin.html", form=form)
+  return render_template("users/thay-doi-thong-tin.html")

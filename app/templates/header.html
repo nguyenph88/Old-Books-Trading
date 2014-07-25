@@ -41,19 +41,19 @@
                         <li><a href="shortcodes.html ">Tìm Sách</a></li>
                         <li class="dropdown"><a href="#">Thông Tin <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="{{ url_for('info.gioithieu') }}">Giới Thiệu</a></li>
-                                <li><a href="{{ url_for('info.huongdansudung') }}">Hướng Dẫn Sử Dụng</a></li>
-                                <li><a href="{{ url_for('info.hotro') }}">Hỗ Trợ</a></li>
-                                <li><a href="{{ url_for('info.lienhe') }}">Liên Hệ</a></li>
-                                <li><a href="{{ url_for('info.quyenloitrachnhiem') }}">Quyền Lợi và Trách Nhiệm</a></li>
+                                <li><a href="{{ url_for('info.gioithieu') }}"><i class="fa fa-thumbs-o-up fa-2x"></i> &nbsp;&nbsp;&nbsp;Giới Thiệu</a></li>
+                                <li><a href="{{ url_for('info.huongdansudung') }}"><i class="fa fa-book fa-2x"></i> &nbsp;&nbsp;&nbsp;Hướng Dẫn Sử Dụng</a></li>
+                                <li><a href="{{ url_for('info.lienhe') }}"><i class="fa fa-comment-o fa-2x"></i> &nbsp;&nbsp;&nbsp;Hỗ Trợ - Liên Hệ</a></li>
+                                <li><a href="{{ url_for('info.baomat') }}"><i class="fa fa-lock fa-2x"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chính Sách Bảo Mật</a></li>
+                                <li><a href="{{ url_for('info.quyenloitrachnhiem') }}"><i class="fa fa-gavel fa-2x"></i> &nbsp;&nbsp;&nbsp;Quyền Lợi và Trách Nhiệm</a></li>
                             </ul>
                         </li>
                         {% if is_auth %}                    
-                        <li class="dropdown"><a href="blog.html">Cá Nhân <i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="{{ url_for('users.home') }}">Cá Nhân <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="blog.html">Thay Đổi Thông Tin</a></li>
-                                <li><a href="blogtwo.html">Sách Đã Đăng</a></li>
-                                <li><a href="{{ url_for('users.dangxuat') }}">Đăng Xuất</a></li>
+                                <li><a href="{{ url_for('users.thaydoithongtin') }}"><i class="fa fa-edit fa-2x"></i> &nbsp;&nbsp;&nbsp;Thay Đổi Thông Tin</a></li>
+                                <li><a href="blogtwo.html"><i class="fa fa-list fa-2x"></i> &nbsp;&nbsp;&nbsp;Sách Đã Đăng</a></li>
+                                <li><a href="{{ url_for('users.dangxuat') }}"><i class="fa fa-send-o fa-2x"></i> &nbsp;&nbsp;&nbsp;Đăng Xuất</a></li>
                             </ul>
                         </li>
                         {% endif %}
@@ -63,7 +63,7 @@
                     <form role="form">
                         <i class="fa fa-search"></i>
                         <div class="field-toggle">
-                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
+                            <input type="text" class="search-form" autocomplete="off" placeholder="Tìm Kiếm...">
                         </div>
                     </form>
                 </div>

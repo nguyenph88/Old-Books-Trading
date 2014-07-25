@@ -62,9 +62,9 @@ def gioithieu():
 def huongdansudung():
   return render_template("info/huong-dan-su-dung.html")
 
-@mod.route('/ho-tro/')
-def hotro():
-  return render_template("info/ho-tro.html")
+@mod.route('/bao-mat/')
+def baomat():
+  return render_template("info/bao-mat.html")
 
 @mod.route('/lien-he/')
 def lienhe():
