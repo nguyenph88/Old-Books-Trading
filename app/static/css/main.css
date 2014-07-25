@@ -71,6 +71,11 @@
     font-size: 18px;
   }
 
+  h4{
+    font-size: 20px;
+    font-family: Tahoma, Geneva, sans-serif;
+  }  
+
   .overflow{
     overflow: hidden;
   }

@@ -1,0 +1,98 @@
+!important 
+#body .form-horizontal
+{
+	font-family: tahoma;
+}
+
+.form-horizontal p
+{
+	overflow:hidden;
+	position:relative;
+}
+.form-horizontal select, .form-horizontal input[type=text]
+{
+	float:left;
+	margin-right:10px;
+}
+.form-horizontal .price
+{
+	width:40px;
+	position:absolute;
+	top:0;
+	left:177px;
+}
+.form-horizontal .course
+{
+	width:50px;
+}
+
+.form-horizontal .control-label {
+	margin-right:10px;
+}
+.form-horizontal .dollar
+{
+	border-radius: 3px 0 0 3px;
+	left:150px;
+}
+.form-horizontal .le
+{
+	left:225px;
+	border-radius: 0px 3px 3px 0;
+}
+.form-horizontal span{
+	background-color: #EEEEEE;
+    border: 1px solid #CCCCCC;
+    display: inline-block;
+    font-weight: normal;
+    height: 18px;
+    line-height: 18px;
+    min-width: 16px;
+    padding: 4px 5px;
+    text-align: center;
+    text-shadow: 0 1px 0 #FFFFFF;
+    vertical-align: middle;
+    width: auto;
+    margin-right: -1px;
+	position:absolute;
+	top:0px;	
+}
+.form-horizontal input[type=submit]
+{
+	background-color: #0074CC;
+	color:#FFF;
+	padding:5px 10px;
+    background-image: -moz-linear-gradient(center top , #0088CC, #0055CC);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+.loi
+{
+	color:red;
+	float:left;
+	margin:0 10px;
+}
+.form-dk p
+{
+	overflow:hidden;
+}
+.form-dk .email
+{
+	float:left;
+	width:110px;
+}
+.form-dk input[type=text]
+{
+	float:left;
+}
+.form-dk input[type=submit]
+{
+	width:100px;
+}
+.error p
+{
+	color:red;
+}
+.form-horizontal input[type="text"].addloi
+{
+	border:1px solid #F00;
+}

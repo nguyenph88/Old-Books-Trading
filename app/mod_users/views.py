@@ -116,7 +116,8 @@ def register():
 
 @mod.route('/dang-sach/')
 def dangsach():
-  return render_template("users/dang-sach.html")
+  form = RegisterForm(request.form)
+  return render_template("users/dang-sach.html", form=form)
 
 @mod.route('/dang-xuat/')
 def dangxuat():
