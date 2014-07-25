@@ -14,7 +14,7 @@ from flask.ext.login import login_required, login_user, logout_user
 from werkzeug import check_password_hash, generate_password_hash
 
 from app import db, lm
-from app.mod_users.forms import RegisterForm, LoginForm
+from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm
 from app.mod_users.models import User
 
 from datetime import datetime
@@ -127,12 +127,40 @@ def thanhvien(nickname):
         return redirect(url_for('index'))
     return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
-@mod.route('/thay-doi-thong-tin/')
+@mod.route('/thay-doi-thong-tin/', methods = ['GET', 'POST'])
 @login_required
 def thaydoithongtin():
-  #editProfile = EditProfileForm(request.form)
-  #return render_template("users/thay-doi-thong-tin.html", form=form)
-  return render_template("users/thay-doi-thong-tin.html")
+  editProfile = EditProfileForm(request.form)
+
+  if editProfile.validate_on_submit():
+    g.user.fullname = editProfile.fullname.data
+    g.user.email = editProfile.email.data
+    g.user.about_me = editProfile.about_me.data
+    db.session.add(g.user)
+    db.session.commit()
+    flash('Your changes have been saved.')
+    return redirect(url_for('users.home'))
+  else:
+    editProfile.fullname.data = g.user.fullname
+    editProfile.email.data = g.user.email
+    editProfile.about_me.data = g.user.about_me
+  return render_template("users/thay-doi-thong-tin.html", editprofileform=editProfile,\
+                          is_auth = g.user.is_authenticated(), username = g.user.nickname)
+  #return render_template("users/thay-doi-thong-tin.html")
+
+@mod.route('/thay-doi-mau-khau/', methods = ['GET', 'POST'])
+@login_required
+def thaydoimatkhau():
+  editPassword = EditPasswordForm(request.form)
+
+  if editPassword.validate_on_submit():
+    g.user.password = editPassword.password.data
+    db.session.add(g.user)
+    db.session.commit()
+    flash('Password changed successfully.')
+    return redirect(url_for('users.home'))
+  return render_template("users/thay-doi-mat-khau.html", editpasswordform=editPassword,\
+                          is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/dang-sach/')
 def dangsach():

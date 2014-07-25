@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
+        <div class="container">
+            <div class="row">
+                      <form method="POST" action="." class="editpasswordform">
+                        {{ editpasswordform.csrf_token }}
+                        {{ editpasswordform.hidden_tag() }}
+                            <!-- Thay doi mat khau -->
+                            <font face="Open Sans Condensed" color="#3399FF" size="6px"><i class="fa fa-user fa-2x"></i> Thay Đổi Mật Khẩu:</font><br/><br/>
+                            <table style="width:900px;">
+                            <tr>
+                              <td><h3>Mật Khẩu Mới: </h3></td>
+                              <td>{{ editpasswordform.password(size=50) }}</br>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><h3>Nhập Lại:</h3></td>
+                              <td>{{ editpasswordform.confirm(size=50) }}</td>
+                            </tr>
+                            </table>
+                        <h3>Nhập captcha:</h3>
+                        {{ editpasswordform.recaptcha }}
+
+                        </br> 
+                        <input type="submit" value="Thay Đổi Mật Khẩu">
+                      </form>
+                      </br>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

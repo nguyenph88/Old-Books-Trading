@@ -4,41 +4,39 @@
     <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
         <div class="container">
             <div class="row">
-                      <form method="POST" action="." class="form">
-                        {{ form.csrf_token }}
-                        {{ form.hidden_tag() }}
+                      <form method="POST" action="." class="editprofileform">
+                        {{ editprofileform.csrf_token }}
+                        {{ editprofileform.hidden_tag() }}
                             <!-- Thay doi thong tin ca nhan -->
-                            <font face="Open Sans Condensed" color="#3399FF" size="6px"><i class="fa fa-graduation-cap fa-2x"></i> Thông tin trường lớp:</font><br/><br/>
+                            <font face="Open Sans Condensed" color="#3399FF" size="6px"><i class="fa fa-user fa-2x"></i> Thay Đổi Thông Tin Cá Nhân:</font><br/><br/>
+                            <h2>Để thay đổi mật khẩu vui lòng bấm vào <a href="{{ url_for('users.thaydoimatkhau') }}">đây</a>.</h2>
                             <table style="width:900px;">
                             <tr>
-                              <td><h3>Trường Đang Học: *</h3></td>
-                              <td>{{ form.name(size=50, title="Tên trường đang học, có thể là trường trung học, đại học, học viện v.v...") }}</br>
+                              <td><h3>Tên Đầy Đủ: </h3></td>
+                              <td>{{ editprofileform.fullname(size=50) }}</br>
                               </td>
                             </tr>
                             <tr>
-                              <td><h3>Khu Vực:*</h3></td>
-                              <td>{{ form.name(size=50, title="Chọn khu vực mà bạn đang cư ngụ để tiện việc giao dịch và trao đổi") }}</td>
+                              <td><h3>Email:</h3></td>
+                              <td>{{ editprofileform.email(size=50) }}</td>
+                              {% for error in editprofileform.email.errors %}
+                              <span style="color: red;">[{{error}}]</span>
+                              {% endfor %}<br>
                             </tr>
                             <tr>
-                              <td><h3>Ngành Học:</h3></td>
-                              <td>{{ form.name(size=50, title="Chọn ngành bạn đang theo học để giới hạn tìm kiếm nhằm đưa ra kết quả tốt hơn") }}</td>
-                            </tr>
-                            <tr>
-                              <td><h3>Giáo viên phụ trách:</h3></td>
-                              <td>{{ form.name(size=50, title="Chọn giáo viên dạy và sử dụng cuốn sách này để giới hạn tìm kiếm nhằm đưa ra kết quả tốt hơn") }}</td>
+                              <td><h3>Vài Dòng về Bản Thân:</h3></td>
+                              <td>{{ editprofileform.about_me(size=50)}}</td>
                             </tr>
                             </table>
-                            <hr></hr>
-
                         <h3>Nhập captcha:</h3>
-                        {{ form.recaptcha }}
+                        {{ editprofileform.recaptcha }}
                         </br> 
-                        <input type="submit" value="Đăng Sách">
+                        <input type="submit" value="Thay Đổi Thông Tin Cá Nhân">
                       </form>
                       </br>
-                      
 
             </div>
+
         </div>
     </section>
 

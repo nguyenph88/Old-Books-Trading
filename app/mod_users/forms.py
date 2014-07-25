@@ -28,7 +28,15 @@ class RegisterForm(Form):
   recaptcha = RecaptchaField()
 
 class EditProfileForm(Form):
-  name = TextField('NickName')
+  fullname = TextField('FullName')
   email = TextField('Email address', [Email()])
   about_me = TextField('about_me', [Length(min = 0, max = 140)])
+  recaptcha = RecaptchaField()  
+
+class EditPasswordForm(Form):
+  password = PasswordField('Password', [Required()])
+  confirm = PasswordField('Repeat Password', [
+      Required(),
+      EqualTo('password', message='Passwords must match')
+      ])
   recaptcha = RecaptchaField()  

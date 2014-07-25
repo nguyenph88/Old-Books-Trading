@@ -5,10 +5,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center">
-                	<h1 class="margin-bottom" align="left">Xin chào {{ user.name }},</h1>
+                	<h1 class="margin-bottom" align="left">Xin chào {{ user.nickname }},</h1>
                     <p align="left">Bạn có <font color="red">5</font> sách đã đăng và <font color="red">4</font> sách đã bán được.<br />
-                    Tổng số tiền bạn kiếm được từ việc bán sách ước lượng khoảng <font color="red">25000</font> vnd. Good job! :)<br />
-                    {% if user.about_me %}{{user.about_me}}<br />{% endif %}
+                    Tổng số tiền bạn kiếm được từ việc bán sách ước lượng khoảng <font color="red">25000</font> vnd. Good job! :)<br /><br />
+                    {% if user.fullname %}Tên Đầy Đủ: {{user.fullname}}<br />{% endif %}
+                    {% if user.about_me %}Vài Dòng Bản Thân: {{user.about_me}}<br />{% endif %}
                     {% if user.last_seen %}Lần cuối thấy mặt: <i>{{user.last_seen}}</i><br />{% endif %}
                     </p>      
                 </div>
