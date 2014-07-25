@@ -16,7 +16,7 @@ from werkzeug import check_password_hash, generate_password_hash
 from app import db, lm
 from app.mod_users.forms import RegisterForm, LoginForm
 from app.mod_users.models import User
-from app.mod_users.decorators import requires_login
+
 
 ###################################
 ## Initial setup for this module ##

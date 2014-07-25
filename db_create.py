@@ -3,7 +3,7 @@
 # Author: miguelgrinberg, Peter Nguyen
 # Last Update: 07/22/2014
 # Description:   - Create the database
-#                - Migrate all database after upgrade (db_migrate.py)
+#                - Setup the Migration of all databases after upgrade (db_migrate.py)
 # 
 #############################################################
 
