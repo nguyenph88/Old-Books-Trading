@@ -121,7 +121,7 @@ def register():
 @mod.route('/<nickname>')
 @login_required
 def thanhvien(nickname):
-    user = User.query.filter_by(name = nickname).first()
+    user = User.query.filter_by(nickname = nickname).first()
     if user == None:
         flash('User ' + nickname + ' not found.')
         return redirect(url_for('index'))
