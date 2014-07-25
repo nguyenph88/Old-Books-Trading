@@ -44,7 +44,7 @@ def load_user(id):
 @mod.route('/me/')
 @login_required
 def home():
-  return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.name)
+  return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.nickname)
 
 @mod.before_request
 def before_request():
@@ -76,7 +76,7 @@ def dangnhap():
       # the session can't be modified as it's signed, 
       # it's a safe place to store the user id
       session['user_id'] = user.id
-      session['username'] = user.name
+      session['username'] = user.nickname
       session['remember_me'] = form.remember_me.data
 
       # Get the remember_me option and save it to user, then empty it 
@@ -95,9 +95,6 @@ def dangnhap():
 
 @mod.route('/register/', methods=['GET', 'POST'])
 def register():
-  """
-  Registration Form
-  """
   # If user is already login then redirect user to the profile page
   if g.user is not None and g.user.is_authenticated():
     return redirect(url_for('users.home'))
@@ -105,7 +102,7 @@ def register():
   form = RegisterForm(request.form)
   if form.validate_on_submit():
     # create an user instance not yet stored in the database
-    user = User(name=form.name.data, email=form.email.data, \
+    user = User(nickname=form.nickname.data, fullname=form.fullname.data, email=form.email.data,\
       password=generate_password_hash(form.password.data))
     # Insert the record in our database and commit it
     db.session.add(user)
@@ -113,7 +110,7 @@ def register():
 
     # Log the user in, as he now has an id and name
     session['user_id'] = user.id
-    session['username'] = user.name
+    session['username'] = user.nickname
 
     # flash will display a message to the user
     flash('Thanks for registering')
@@ -128,7 +125,14 @@ def thanhvien(nickname):
     if user == None:
         flash('User ' + nickname + ' not found.')
         return redirect(url_for('index'))
-    return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.name)
+    return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+
+@mod.route('/thay-doi-thong-tin/')
+@login_required
+def thaydoithongtin():
+  #editProfile = EditProfileForm(request.form)
+  #return render_template("users/thay-doi-thong-tin.html", form=form)
+  return render_template("users/thay-doi-thong-tin.html")
 
 @mod.route('/dang-sach/')
 def dangsach():
@@ -142,9 +146,3 @@ def dangxuat():
   session.clear()
   return render_template("users/dang-xuat.html")
 
-@mod.route('/thay-doi-thong-tin/')
-@login_required
-def thaydoithongtin():
-  #form = RegisterForm(request.form)
-  #return render_template("users/thay-doi-thong-tin.html", form=form)
-  return render_template("users/thay-doi-thong-tin.html")

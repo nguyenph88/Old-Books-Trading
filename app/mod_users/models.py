@@ -15,7 +15,8 @@ class User(db.Model):
 
     __tablename__ = 'Users'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True)
+    nickname = db.Column(db.String(50), unique=True)
+    fullname = db.Column(db.String(100))
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
     role = db.Column(db.SmallInteger, default=USER.USER)
@@ -26,8 +27,9 @@ class User(db.Model):
     about_me = db.Column(db.String(200))
     last_seen = db.Column(db.DateTime)
 
-    def __init__(self, name=None, email=None, password=None):
-      self.name = name
+    def __init__(self, nickname=None, fullname=None, email=None, password=None):
+      self.nickname = nickname
+      self.fullname = fullname
       self.email = email
       self.password = password
       self.activation_code = self.activationkey_generator()
