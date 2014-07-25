@@ -17,6 +17,8 @@ from app import db, lm
 from app.mod_users.forms import RegisterForm, LoginForm
 from app.mod_users.models import User
 
+from datetime import datetime
+
 
 ###################################
 ## Initial setup for this module ##
@@ -52,6 +54,11 @@ def before_request():
   g.user = None
   if 'user_id' in session:
     g.user = User.query.get(session['user_id'])
+    # update last seen, does not necessary to update it in Login because sometimes user uses remember_me
+    g.user.last_seen = datetime.utcnow()
+    db.session.add(g.user)
+    db.session.commit()
+
 
 @mod.route('/dang-nhap/', methods=['GET', 'POST'])
 def dangnhap():
@@ -121,7 +128,7 @@ def thanhvien(nickname):
     if user == None:
         flash('User ' + nickname + ' not found.')
         return redirect(url_for('index'))
-    return render_template('users/thanh-vien.html', user = user)
+    return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.name)
 
 @mod.route('/dang-sach/')
 def dangsach():

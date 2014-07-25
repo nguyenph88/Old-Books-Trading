@@ -23,6 +23,8 @@ class User(db.Model):
     activation_code = db.Column(db.String(12), unique=True)
     # backref indicates that table Book can call the related user who posted by book.author
     books = db.relationship('Book', backref = 'author', lazy = 'dynamic')
+    about_me = db.Column(db.String(200))
+    last_seen = db.Column(db.DateTime)
 
     def __init__(self, name=None, email=None, password=None):
       self.name = name
