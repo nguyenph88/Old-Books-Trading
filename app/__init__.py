@@ -25,6 +25,9 @@ db = SQLAlchemy(app)
 lm = LoginManager()
 lm.init_app(app)
 
+# Upload Folder
+uf = app.config['UPLOAD_FOLDER']
+
 ############################
 ### Configure Secret Key ###
 ############################

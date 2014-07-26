@@ -66,23 +66,44 @@ class User(db.Model):
 class Book(db.Model):
     __tablename__ = 'Books'
     id = db.Column(db.Integer, primary_key = True)
-    tensach = db.Column(db.String(100))
-    khuvuc = db.Column(db.String(100))
-    tacgia = db.Column(db.String(100))
     truong = db.Column(db.String(100))
+    khuvuc = db.Column(db.String(100))
     chuyennganh = db.Column(db.String(100))
     giaovien = db.Column(db.String(100))
-    giaban = db.Column(db.SmallInteger, default=0)
-    tinhtrang = db.Column(db.String(100))
-    thoigiandang = db.Column(db.DateTime)
 
+    tensach = db.Column(db.String(100))
+    tacgia = db.Column(db.String(100))
+    theloai = db.Column(db.String(100))
+    tinhtrang = db.Column(db.String(100))
+    
+    giaban = db.Column(db.SmallInteger, default=0)
     noigapmat = db.Column(db.String(300))
     thoigiangapmat = db.Column(db.String(200))
     lienhe = db.Column(db.String(200))
     image = db.Column(db.String(200))
+
+    thoigiandang = db.Column(db.DateTime)
     # link to the user who posted this book
     # Foreign Key linked to a table then a specific field
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
 
+    '''
+    def __init__(self, truong=None, khuvuc=None, chuyennganh=None, giaovien=None, \
+                tensach=None, tacgia=None, theloai=None, tinhtrang=None, giaban=None, \
+                noigapmat=None, thoigiangapmat=None, lienhe=None):
+        this.truong = truong
+        this.khuvuc = khuvuc
+        this.chuyennganh = chuyennganh
+        this.giaovien = giaovien
+        this.tensach = tensach
+        this.tacgia = tacgia
+        this.theloai = theloai
+        this.theloai = theloai
+        this.tinhtrang = tinhtrang
+        this.giaban = giaban
+        this.noigapmat = noigapmat
+        this.thoigiangapmat = thoigiangapmat
+        this.lienhe = lienhe
+    '''
     def __repr__(self):
-        return '<Post %r>' % (self.body)
+        return '<Book %r>' % (self.body)

@@ -46,15 +46,26 @@ class DangSach(Form):
   khuvuc = SelectField(u'Khu Vuc', choices=[('hcm', 'Tp Ho chi Minh'), ('hn', 'Ha Noi'), ('tr', 'Mien Trung')])
   chuyennganh = SelectField(u'Nganh Hoc', choices=[('it', 'cong nghe thong tin'), ('ck', 'co khi'), ('dien', 'dien tu')])
   giaovien = TextField('Giao Vien', [Required()])
+
   tensach = TextField('Ten Sach', [Required()])
   tacgia = TextField('Ten Tac Gia', [Required()])
-  theLoai = TextField('The Loai Sach', [Required()])
+  theloai = TextField('The Loai Sach', [Required()])
   tinhtrang = TextField('Truong Dang Hoc', [Required()])
-  #myFile  = FileField(u'Image File', [validators.regexp(u'(?i)\.(jpg|png|gif)$')])
-  fileName  = FileField()
   giaban = TextField('Gia Ban', [Required()])
   thoigiangapmat = TextField('thoi gian va ngay hen', [Required()])
   noigapmat = TextField('Dia Diem Uu Tien', [Required()])
   lienhe = TextField('Lien He', [Required()])
+
+  #myFile  = FileField(u'Image File', [validators.regexp(u'(?i)\.(jpg|png|gif)$')])
+  imageFile  = FileField('Book image')
+
   accept_tos = BooleanField('I accept the TOS', [Required()])
   #recaptcha = RecaptchaField()
+
+
+
+
+
+
+
+

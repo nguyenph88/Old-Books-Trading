@@ -16,12 +16,11 @@ from flask_wtf.file import FileField
 
 from datetime import datetime
 from flask.ext.babel import Babel
-from app import db, lm
+from app import db, lm, uf
 from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach
-from app.mod_users.models import User
+from app.mod_users.models import User, Book
 
 from datetime import datetime
-
 
 ###################################
 ## Initial setup for this module ##
@@ -171,18 +170,17 @@ def dangsach():
   if form.validate_on_submit():
     #create an user instance not yet stored in the database
     ser = User.query.get(session['user_id'])
-    filenamea = secure_filename(form.fileName.data.filename)
-    send_from_directory('/static/imgages/books', filenamea)
-    #book = Book(tensach=form.tensach.data, tacgia=form.tacgia.data, \
-      #truong=form.truong.data, chuyennganh=request.form['chuyennganh'], \
-       #giaovien=form.giaovien.data, giaban=form.giaban.data, \
-       #tinhtrang=form.tinhtrang.data, thoigiandang=datetime.now(), \
-       #noigapmat=form.noigapmat.data, thoigiangapmat=form.thoigiangapmat.data, \
-       #lienhe=form.lienhe.data, author=user, khuvuc=request.form['khuvuc'])
+    filename = secure_filename(form.imageFile.data.filename)
+    form.imageFile.data.save(uf + filename)
+
+    book = Book( truong=form.truong.data, khuvuc=request.form['khuvuc'], chuyennganh=request.form['chuyennganh'], giaovien=form.giaovien.data,\
+        tensach=form.tensach.data, tacgia=form.tacgia.data, theloai=form.theloai.data, tinhtrang=form.tinhtrang.data, giaban=form.giaban.data, \
+        noigapmat=form.noigapmat.data, thoigiangapmat=form.thoigiangapmat.data, lienhe=form.lienhe.data, \
+        author=g.user)
     # Insert the record in our database and commit it
-    #db.session.add(book)
-    #db.session.commit()
-    flash('book load already')
+    db.session.add(book)
+    db.session.commit()
+    flash('book load already' + filename)
     return redirect(url_for('users.home'))
   return render_template("users/dang-sach.html", form=form)
 
