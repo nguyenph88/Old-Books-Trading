@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 
+<section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <table class="tg" style="margin: 0px;" border="0" width="100%">
+                              <tr>
+                                <th><h2 align="left" style="font-size:35px;font-weight:bold;">{{ user.nickname }}</h2><br>
+                                    <h3 align="left">{% if user.fullname %}{{user.fullname}}{% endif %}<h3>
+                                </th>
+                                <th><img src="{{user.avatar(128)}}" style="border:8px solid white" align="right"></th>
+                              </tr>
+                            </table>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#page-breadcrumb-->
+
     <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
         <div class="container">
             <div class="row">

@@ -1,12 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
 
+
+
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <table class="tg" style="margin: 0px;" border="0" width="100%">
+                              <tr>
+                                <th><h2 align="left" style="font-size:35px;font-weight:bold;">{{ user.nickname }}</h2><br>
+                                    <h3 align="left">{% if user.fullname %}{{user.fullname}}{% endif %}<h3>
+                                </th>
+                                <th><img src="{{user.avatar(128)}}" style="border:8px solid white" align="right"></th>
+                              </tr>
+                            </table>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#page-breadcrumb-->
+
     <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center">
-                	<h1 class="margin-bottom" align="left">Xin chào {{ user.nickname }},</h1>
-                    <img src="{{user.avatar(128)}}">
                     <p align="left">Bạn có <font color="red">5</font> sách đã đăng và <font color="red">4</font> sách đã bán được.<br />
                     Tổng số tiền bạn kiếm được từ việc bán sách ước lượng khoảng <font color="red">25000</font> vnd. Good job! :)<br /><br />
                     {% if user.fullname %}Tên Đầy Đủ: {{user.fullname}}<br />{% endif %}
@@ -18,4 +40,8 @@
         </div>
     </section>
     <!--/#about-company-->
+{% endblock %}
+
+{% block css %}
+    <link href="/static/css/profilestyle.css" rel="stylesheet">
 {% endblock %}
