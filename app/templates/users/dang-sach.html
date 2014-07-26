@@ -34,20 +34,20 @@
                             <table style="width:900px;">
                             <tr>
                               <td><h3>Trường Đang Học: *</h3></td>
-                              <td>{{ form.nickname(size=50, title="Tên trường đang học, có thể là trường trung học, đại học, học viện v.v...") }}</br>
+                              <td>{{ form.truong(size=50, title="Tên trường đang học, có thể là trường trung học, đại học, học viện v.v...") }}</br>
                               </td>
                             </tr>
                             <tr>
                               <td><h3>Khu Vực:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="Chọn khu vực mà bạn đang cư ngụ để tiện việc giao dịch và trao đổi") }}</td>
+                              <td>{{ form.khuvuc }}</td>
                             </tr>
                             <tr>
                               <td><h3>Ngành Học:</h3></td>
-                              <td>{{ form.nickname(size=50, title="Chọn ngành bạn đang theo học để giới hạn tìm kiếm nhằm đưa ra kết quả tốt hơn") }}</td>
+                              <td>{{ form.chuyennganh }}</td>
                             </tr>
                             <tr>
                               <td><h3>Giáo viên phụ trách:</h3></td>
-                              <td>{{ form.nickname(size=50, title="Chọn giáo viên dạy và sử dụng cuốn sách này để giới hạn tìm kiếm nhằm đưa ra kết quả tốt hơn") }}</td>
+                              <td>{{ form.giaovien(size=50, title="Chọn giáo viên dạy và sử dụng cuốn sách này để giới hạn tìm kiếm nhằm đưa ra kết quả tốt hơn") }}</td>
                             </tr>
                             </table>
                             <hr></hr>
@@ -56,23 +56,23 @@
                             <table style="width:900px;">
                             <tr>
                               <td><h3>Tên Sách:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="Tên càng chi tiết và rõ ràng cùng giúp kết quả tìm tốt hơn") }}</td>
+                              <td>{{ form.tensach(size=50, title="Tên càng chi tiết và rõ ràng cùng giúp kết quả tìm tốt hơn") }}</td>
                             </tr>
                             <tr>
                               <td><h3>Tên Tác Giả:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="Để tránh nhầm lẫn vui lòng điền thêm tên tác giả hoặc nhà xuất bản") }}</td>
+                              <td>{{ form.tacgia(size=50, title="Để tránh nhầm lẫn vui lòng điền thêm tên tác giả hoặc nhà xuất bản") }}</td>
                             </tr>
                             <tr>
                               <td><h3>Thể Loại:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="Có thể là sách giáo khoa, sách tham khảo, sách giải, tài liệu hoặc sách đọc thêm") }}</td>
+                              <td>{{ form.theLoai(size=50, title="Có thể là sách giáo khoa, sách tham khảo, sách giải, tài liệu hoặc sách đọc thêm") }}</td>
                             </tr>
                             <tr>
                               <td><h3>Tình Trạng Sách:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="Để tiện việc trao đổi vui lòng ghi rõ tình trạng cuốn sách, VD: còn khá mới, mới, cũ, còn sử dụng được, có ghi chép, mất bìa v.v...") }}</td>
+                              <td>{{ form.tinhtrang(size=50, title="Để tiện việc trao đổi vui lòng ghi rõ tình trạng cuốn sách, VD: còn khá mới, mới, cũ, còn sử dụng được, có ghi chép, mất bìa v.v...") }}</td>
                             </tr>
                             <tr>
                               <td><h3>Giá Muốn Bán:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="- Ghi bằng số - Giá bạn muốn bán cuốn sách là bao nhiêu, VD: 5000, 10000, 12500 v.v..., nếu bạn muốn tặng vui lòng ghi 0") }}</td>
+                              <td>{{ form.giaban(size=50, title="- Ghi bằng số - Giá bạn muốn bán cuốn sách là bao nhiêu, VD: 5000, 10000, 12500 v.v..., nếu bạn muốn tặng vui lòng ghi 0") }}</td>
                             </tr>
                             </table>
                             <hr></hr>
@@ -81,7 +81,7 @@
                             <table style="table-layout: fixed;">
                             <tr>
                               <td width="200px"><h3>Thời Gian và Ngày Hẹn:*</h3></td>
-                              <td width="1000px">{{ form.nickname(size=50, title="Cho người mua biết bạn muốn hẹn gặp mặt vào lúc nào, không bắt buộc bạn và người mua sách phải gặp đúng ngày và giờ này, nhưng cho người khác có khái niệm chung khi nào có thể gặp được. VD: 'Khoảng 2,3h chiều thứ 5 ngày 17/8', 'nguyên ngày thứ 5 17/8 mình rảnh lúc nào cũng được', 'mình chỉ rảnh trưa thứ 5 17/8' v.v...") }}</td>
+                              <td width="1000px">{{ form.thoigiangapmat(size=50, title="Cho người mua biết bạn muốn hẹn gặp mặt vào lúc nào, không bắt buộc bạn và người mua sách phải gặp đúng ngày và giờ này, nhưng cho người khác có khái niệm chung khi nào có thể gặp được. VD: 'Khoảng 2,3h chiều thứ 5 ngày 17/8', 'nguyên ngày thứ 5 17/8 mình rảnh lúc nào cũng được', 'mình chỉ rảnh trưa thứ 5 17/8' v.v...") }}</td>
                             </tr>
                             <tr>
                               <td></td>
@@ -89,7 +89,7 @@
                             </tr>
                             <tr>
                               <td><h3>Địa Điểm Ưu Tiên:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="Cho người mua biết bạn muốn gặp ở đâu, không bắt buộc phải gặp đúng chỗ mọi việc đều có thể nói chuyện và hẹn lại với người mua. VD:'Sân trường Tự Nhiên NVC', 'Cổng DH Bách Khoa HN', 'thư viện Lê Hồng Phong' v.v..") }}</td>
+                              <td>{{ form.noigapmat(size=50, title="Cho người mua biết bạn muốn gặp ở đâu, không bắt buộc phải gặp đúng chỗ mọi việc đều có thể nói chuyện và hẹn lại với người mua. VD:'Sân trường Tự Nhiên NVC', 'Cổng DH Bách Khoa HN', 'thư viện Lê Hồng Phong' v.v..") }}</td>
                             </tr>
                             <tr>
                               <td></td>
@@ -97,11 +97,15 @@
                             </tr>
                             <tr>
                               <td><h3>Liên Hệ:*</h3></td>
-                              <td>{{ form.nickname(size=50, title="Cách nào là tốt nhất để có thể liên hệ bạn, qua email, di động, facebook v.v... VD: 'email mình ở địa chỉ conco@bebe.com', 'add fb và PM mình nhé, link: fb.com/concobebe', 'Qua skype: concobebe' v.v... ") }}</td>
+                              <td>{{ form.lienhe(size=50, title="Cách nào là tốt nhất để có thể liên hệ bạn, qua email, di động, facebook v.v... VD: 'email mình ở địa chỉ conco@bebe.com', 'add fb và PM mình nhé, link: fb.com/concobebe', 'Qua skype: concobebe' v.v... ") }}</td>
                             </tr>
                             <tr>
                               <td></td>
                               <td><h3>VD: 'email mình ở địa chỉ conco@bebe.com', 'add fb và PM mình nhé, link: fb.com/concobebe', 'Qua skype: concobebe' v.v... </h3></td>
+                            </tr>
+                            <tr>
+                              <td><h3>Hình Ảnh:*</h3></td>
+                              <td>{{ form.image }}</td>
                             </tr>
                             </table>
                             <hr></hr>

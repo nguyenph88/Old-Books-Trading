@@ -1,6 +1,6 @@
 #############################################################
 # 
-# Author: Peter Nguyen
+# Author: Peter Nguyen, Hoc Duong
 # Last Update: 07/22/2014
 # Description:   - Model for this module
 #                - Initialize with sqlite and basic column
@@ -67,6 +67,7 @@ class Book(db.Model):
     __tablename__ = 'Books'
     id = db.Column(db.Integer, primary_key = True)
     tensach = db.Column(db.String(100))
+    khuvuc = db.Column(db.String(100))
     tacgia = db.Column(db.String(100))
     truong = db.Column(db.String(100))
     chuyennganh = db.Column(db.String(100))
@@ -78,6 +79,7 @@ class Book(db.Model):
     noigapmat = db.Column(db.String(300))
     thoigiangapmat = db.Column(db.String(200))
     lienhe = db.Column(db.String(200))
+    image = db.Column(db.String(200))
     # link to the user who posted this book
     # Foreign Key linked to a table then a specific field
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
