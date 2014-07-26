@@ -145,7 +145,7 @@ def thaydoithongtin():
     editProfile.email.data = g.user.email
     editProfile.about_me.data = g.user.about_me
   return render_template("users/thay-doi-thong-tin.html", editprofileform=editProfile,\
-                          is_auth = g.user.is_authenticated(), username = g.user.nickname)
+                          is_auth = g.user.is_authenticated(), username = g.user.nickname, user=g.user)
   #return render_template("users/thay-doi-thong-tin.html")
 
 @mod.route('/thay-doi-mau-khau/', methods = ['GET', 'POST'])

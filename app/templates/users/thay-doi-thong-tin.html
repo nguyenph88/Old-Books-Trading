@@ -8,8 +8,9 @@
                         {{ editprofileform.csrf_token }}
                         {{ editprofileform.hidden_tag() }}
                             <!-- Thay doi thong tin ca nhan -->
-                            <font face="Open Sans Condensed" color="#3399FF" size="6px"><i class="fa fa-user fa-2x"></i> Thay Đổi Thông Tin Cá Nhân:</font><br/><br/>
+                            <font face="Open Sans Condensed" color="#3399FF" size="6px"><img src="{{user.avatar(32)}}"> Thay Đổi Thông Tin Cá Nhân:</font><br/><br/>
                             <h2>Để thay đổi mật khẩu vui lòng bấm vào <a href="{{ url_for('users.thaydoimatkhau') }}">đây</a>.</h2>
+                            <h2>Hình đại diện được liên kết với email của bạn thông qua Gravatar.com, để thay đổi avatar vui lòng bấm vào  <a href="http://www.gravatar.com">đây</a>.</h2>
                             <table style="width:900px;">
                             <tr>
                               <td><h3>Tên Đầy Đủ: </h3></td>
