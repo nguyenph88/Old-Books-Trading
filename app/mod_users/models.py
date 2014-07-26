@@ -10,6 +10,7 @@
 from app import db
 from app.mod_users import constants as USER
 import string, random
+from hashlib import md5
 
 class User(db.Model):
 
@@ -26,6 +27,9 @@ class User(db.Model):
     books = db.relationship('Book', backref = 'author', lazy = 'dynamic')
     about_me = db.Column(db.String(200))
     last_seen = db.Column(db.DateTime)
+    
+    def avatar(self, size):
+        return 'http://www.gravatar.com/avatar/' + md5(self.email).hexdigest() + '?d=mm&s=' + str(size)
 
     def __init__(self, nickname=None, fullname=None, email=None, password=None):
       self.nickname = nickname

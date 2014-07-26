@@ -6,6 +6,7 @@
             <div class="row">
                 <div class="col-sm-12 text-center">
                 	<h1 class="margin-bottom" align="left">Xin chào {{ user.nickname }},</h1>
+                    <img src="{{user.avatar(128)}}">
                     <p align="left">Bạn có <font color="red">5</font> sách đã đăng và <font color="red">4</font> sách đã bán được.<br />
                     Tổng số tiền bạn kiếm được từ việc bán sách ước lượng khoảng <font color="red">25000</font> vnd. Good job! :)<br /><br />
                     {% if user.fullname %}Tên Đầy Đủ: {{user.fullname}}<br />{% endif %}
