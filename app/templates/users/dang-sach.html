@@ -26,7 +26,7 @@
     <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
         <div class="container">
             <div class="row">
-                      <form method="POST" action="." class="form">
+                      <form method="POST" action="." class="form" enctype="multipart/form-data">
                         {{ form.csrf_token }}
                         {{ form.hidden_tag() }}
                         	<!-- thong tin truong lop -->
@@ -105,7 +105,7 @@
                             </tr>
                             <tr>
                               <td><h3>Hình Ảnh:*</h3></td>
-                              <td>{{ form.image }}</td>
+                              <td>{{ form.fileName }}</td>
                             </tr>
                             </table>
                             <hr></hr>

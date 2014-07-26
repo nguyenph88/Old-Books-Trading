@@ -5,7 +5,7 @@
 # Description: Handle the Forms inside this module
 # 
 #############################################################
-
+from flask import request
 from flask.ext.wtf import Form, RecaptchaField
 from wtforms import TextField, PasswordField, BooleanField, SelectField, FileField, validators
 from wtforms.validators import Required, EqualTo, Email, Length
@@ -50,7 +50,8 @@ class DangSach(Form):
   tacgia = TextField('Ten Tac Gia', [Required()])
   theLoai = TextField('The Loai Sach', [Required()])
   tinhtrang = TextField('Truong Dang Hoc', [Required()])
-  image  = FileField(u'Image File', [validators.regexp(u'(?i)\.(jpg|png|gif)$')])
+  #myFile  = FileField(u'Image File', [validators.regexp(u'(?i)\.(jpg|png|gif)$')])
+  fileName  = FileField()
   giaban = TextField('Gia Ban', [Required()])
   thoigiangapmat = TextField('thoi gian va ngay hen', [Required()])
   noigapmat = TextField('Dia Diem Uu Tien', [Required()])

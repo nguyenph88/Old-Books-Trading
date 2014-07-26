@@ -9,10 +9,10 @@
 #############################################################
 
 
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
+from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, send_from_directory
 from flask.ext.login import login_required, login_user, logout_user
-from werkzeug import check_password_hash, generate_password_hash
-
+from werkzeug import check_password_hash, generate_password_hash, secure_filename
+from flask_wtf.file import FileField
 
 from datetime import datetime
 from flask.ext.babel import Babel
@@ -167,21 +167,21 @@ def thaydoimatkhau():
 
 @mod.route('/dang-sach/', methods=['GET', 'POST'])
 def dangsach():
-  form = DangSach(request.form)
+  form = DangSach()
   if form.validate_on_submit():
-    # create an user instance not yet stored in the database
-    user = User.query.get(session['user_id'])
-    myFile = secure_filename(form.fileName.file.filename)
-    file.save(os.path.join(app.config['/app/mod_image'], myFile))
-    book = Book(tensach=form.tensach.data, tacgia=form.tacgia.data, \
-      truong=form.truong.data, chuyennganh=request.form['chuyennganh'], \
-       giaovien=form.giaovien.data, giaban=form.giaban.data, \
-       tinhtrang=form.tinhtrang.data, thoigiandang=datetime.now(), \
-       noigapmat=form.noigapmat.data, thoigiangapmat=form.thoigiangapmat.data, \
-       lienhe=form.lienhe.data, author=user, khuvuc=request.form['khuvuc'])
+    #create an user instance not yet stored in the database
+    ser = User.query.get(session['user_id'])
+    filenamea = secure_filename(form.fileName.data.filename)
+    send_from_directory('/static/imgages/books', filenamea)
+    #book = Book(tensach=form.tensach.data, tacgia=form.tacgia.data, \
+      #truong=form.truong.data, chuyennganh=request.form['chuyennganh'], \
+       #giaovien=form.giaovien.data, giaban=form.giaban.data, \
+       #tinhtrang=form.tinhtrang.data, thoigiandang=datetime.now(), \
+       #noigapmat=form.noigapmat.data, thoigiangapmat=form.thoigiangapmat.data, \
+       #lienhe=form.lienhe.data, author=user, khuvuc=request.form['khuvuc'])
     # Insert the record in our database and commit it
-    db.session.add(book)
-    db.session.commit()
+    #db.session.add(book)
+    #db.session.commit()
     flash('book load already')
     return redirect(url_for('users.home'))
   return render_template("users/dang-sach.html", form=form)
