@@ -82,6 +82,7 @@ class Book(db.Model):
     lienhe = db.Column(db.String(200))
     image = db.Column(db.String(200))
 
+    lienhemua = db.Column(db.SmallInteger, default=0)
     thoigiandang = db.Column(db.DateTime)
     # link to the user who posted this book
     # Foreign Key linked to a table then a specific field

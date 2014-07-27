@@ -93,6 +93,15 @@
     padding: 10px 25px;
   }
 
+  .prize {
+    font-size: 20px;
+    color: #0099ae;
+    border: 1px solid #0099ae;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    padding: 10px 25px;
+  }
+
   #action .col-sm-5{
     position: absolute;
 

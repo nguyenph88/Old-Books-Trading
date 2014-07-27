@@ -62,4 +62,4 @@ def thongtinsach(bookid):
     if book == None:
         flash('Book ' + bookid + ' not found.')
         return redirect(url_for('books.newlistings'))
-    return render_template('books/thong-tin-sach.html', book=book, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+    return render_template('books/thong-tin-sach.html', book=book, nickname = 'concobebe', is_auth = g.user.is_authenticated(), username = g.user.nickname)

@@ -4,12 +4,12 @@
     <section id="portfolio-information" class="padding-top">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
-                    <img src="images/portfolio-details/1.jpg" class="img-responsive" alt="">
+                <div class="col-sm-4">
+                    <img src="/static/images/books/404.png" class="img-responsive" alt="" width="300px">
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <div class="project-name overflow">
-                        <h2 class="bold">{{ book.tensach }} - {{ book.tacgia }} ({{ book.giaban }} vnd)</h2>
+                        <h2 class="bold"><b>{{ book.tensach }}</b> - {{ book.tacgia }} ({{ book.giaban }} vnd)</h2>
                         <ul class="nav navbar-nav navbar-default">
                             <li><a href="#"><i class="fa fa-list"></i>{{ book.theloai }}</a></li>
                             <li><a href="#"><i class="fa fa-clock-o"></i>{{ book.thoigiandang }}</a></li>
@@ -21,7 +21,7 @@
                         <style type="text/css">
                         .tg  {border-collapse:collapse;border-spacing:0; width:100%;text-align: left;}
                         .tg td{font-family:"noto sans", sans-serif;color:gray;font-size:12px;padding:5px;overflow:hidden;word-break:normal;}
-                        .tg th{font-family:"noto sans", sans-serif;font-size:12px;font-weight:normal;padding:5px;;overflow:hidden;word-break:normal;}
+                        .tg th{font-family:"noto sans", sans-serif;color:gray;font-size:12px;font-weight:normal;padding:5px;;overflow:hidden;word-break:normal;}
                         </style>
 
                         <table class="tg">
@@ -39,7 +39,7 @@
                     <div class="project-info overflow">
                         <h3>Thông Tin Giao Dịch:</h3>
                         <ul class="elements">
-                            <li><i class="fa fa-angle-right"></i> Người bán muốn hẹn thời gian lúc: {{ book.thoigiangapmat }}</li>
+                            <li><i class="fa fa-angle-right"></i> Thời gian hẹn gặp: {{ book.thoigiangapmat }}</li>
                             <li><i class="fa fa-angle-right"></i> Nơi ưu tiên gặp mặt: {{ book.noigapmat }}</li>
                             <li><i class="fa fa-angle-right"></i> Cách thức liên lạc: {{ book.lienhe }}</li>
                         </ul>
@@ -47,7 +47,7 @@
                     <div class="client overflow">
                         <h3>Thông Tin Được Đăng Bởi:</h3>
                         <ul class="nav navbar-nav navbar-default">
-                            <li><a href="#"><i class="fa fa-bolt"></i>{{ book.author }}</a></li>
+                            <li><a href="{{ url_for('users.thanhvien', nickname = nickname) }}"><img src="{{book.author.avatar(24)}}"> {{ book.author.nickname }}</a></li>
                         </ul>
                     </div>
                     <div class="skills overflow">
@@ -61,7 +61,13 @@
                     </div>
 
                     <div class="live-preview">
-                        <a href="#" class="btn btn-common uppercase">Liên Hệ Mua</a>
+                        <table class="tg">
+                            <tr>
+                                <th><h2><b>Giá Bán:</b> {{ book.giaban }} vnđ</h2></th>
+                                <th><a href="#" class="btn btn-common uppercase">Liên Hệ Mua</a></th>
+                            </tr>
+                        </table>
+                        
                     </div>
                 </div>
             </div>
@@ -77,11 +83,11 @@
                     <div class="portfolio-wrapper">
                         <div class="portfolio-single">
                             <div class="portfolio-thumb">
-                                <img src="images/portfolio/1.jpg" class="img-responsive" alt="">
+                                <img href="/static/images/portfolio/1.jpg" class="img-responsive" alt="">
                             </div>
                             <div class="portfolio-view">
                                 <ul class="nav nav-pills">
-                                    <li><a href="images/portfolio/1.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="/static/images/portfolio/1.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -94,11 +100,11 @@
                     <div class="portfolio-wrapper">
                         <div class="portfolio-single">
                             <div class="portfolio-thumb">
-                                <img src="images/portfolio/2.jpg" class="img-responsive" alt="">
+                                <img src="/static/images/portfolio/2.jpg" class="img-responsive" alt="">
                             </div>
                             <div class="portfolio-view">
                                 <ul class="nav nav-pills">
-                                    <li><a href="images/portfolio/2.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="/static/images/portfolio/2.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -111,11 +117,11 @@
                     <div class="portfolio-wrapper">
                         <div class="portfolio-single">
                             <div class="portfolio-thumb">
-                                <img src="images/portfolio/3.jpg" class="img-responsive" alt="">
+                                <img href="/static/images/portfolio/3.jpg" class="img-responsive" alt="">
                             </div>
                             <div class="portfolio-view">
                                 <ul class="nav nav-pills">
-                                    <li><a href="images/portfolio/3.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="/static/images/portfolio/3.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -128,11 +134,11 @@
                     <div class="portfolio-wrapper">
                         <div class="portfolio-single">
                             <div class="portfolio-thumb">
-                                <img src="images/portfolio/4.jpg" class="img-responsive" alt="">
+                                <img href="/static/images/portfolio/4.jpg" class="img-responsive" alt="">
                             </div>
                             <div class="portfolio-view">
                                 <ul class="nav nav-pills">
-                                    <li><a href="images/portfolio/4.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="/static/images/portfolio/4.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
                                 </ul>
                             </div>
                         </div>
