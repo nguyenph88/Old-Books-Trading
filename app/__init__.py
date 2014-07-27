@@ -87,8 +87,8 @@ app.register_blueprint(usersModule)
 from app.mod_info.views import mod as infoModule
 app.register_blueprint(infoModule)
 
-from app.mod_newlistings.views import mod as newlistingsModule
-app.register_blueprint(newlistingsModule)
+from app.mod_books.views import mod as booksModule
+app.register_blueprint(booksModule)
 
 # Commend this out if we are not manually create database in "shell.py"
 #db.create_all()

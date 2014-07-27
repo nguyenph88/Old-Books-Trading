@@ -19,7 +19,7 @@ from app import db, lm
 ###################################
 
 # Register Blue print
-mod = Blueprint('newlistings', __name__, url_prefix='/newlistings')
+mod = Blueprint('books', __name__, url_prefix='/books')
 
 # Set the page that @login_required will redirect to
 lm.login_view = 'users.dangnhap'
@@ -32,4 +32,4 @@ lm.login_message = u"Xin vui lòng đăng nhập để tiếp tục."
 ###################################
 @mod.route('/')
 def newlistings():
-  return render_template("newlistings/newlistings.html")
+  return render_template("books/newlistings.html")
