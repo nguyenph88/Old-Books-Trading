@@ -43,11 +43,6 @@ lm.login_message = u"Xin vui lòng đăng nhập để tiếp tục."
 def load_user(id):
     return User.query.get(int(id))
 
-@mod.route('/me/')
-@login_required
-def home():
-  return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.nickname)
-
 @mod.before_request
 def before_request():
   """
@@ -61,6 +56,10 @@ def before_request():
     db.session.add(g.user)
     db.session.commit()
 
+@mod.route('/ban-than/')
+@login_required
+def home():
+  return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.nickname)
 
 @mod.route('/dang-nhap/', methods=['GET', 'POST'])
 def dangnhap():
@@ -178,13 +177,13 @@ def dangsach():
     book = Book( truong=form.truong.data, khuvuc=request.form['khuvuc'], chuyennganh=request.form['chuyennganh'], giaovien=form.giaovien.data,\
         tensach=form.tensach.data, tacgia=form.tacgia.data, theloai=form.theloai.data, tinhtrang=form.tinhtrang.data, giaban=form.giaban.data, \
         noigapmat=form.noigapmat.data, thoigiangapmat=form.thoigiangapmat.data, lienhe=form.lienhe.data, \
-        author=g.user)
+        author=g.user, thoigiandang=datetime.utcnow())
     # Insert the record in our database and commit it
     db.session.add(book)
     db.session.commit()
     flash('book load already' + filename)
     return redirect(url_for('users.home'))
-  return render_template("users/dang-sach.html", form=form)
+  return render_template("users/dang-sach.html", form=form, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/dang-xuat/')
 @login_required
