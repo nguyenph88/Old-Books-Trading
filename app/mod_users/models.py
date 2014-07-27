@@ -13,7 +13,6 @@ import string, random
 from hashlib import md5
 
 class User(db.Model):
-
     __tablename__ = 'Users'
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String(50), unique=True)
@@ -27,6 +26,10 @@ class User(db.Model):
     books = db.relationship('Book', backref = 'author', lazy = 'dynamic')
     about_me = db.Column(db.String(200))
     last_seen = db.Column(db.DateTime)
+
+    sosachdang = db.Column(db.SmallInteger, default=0)
+    sosachdaban = db.Column(db.SmallInteger, default=0)
+    sosachdamua = db.Column(db.SmallInteger, default=0)
     
     def avatar(self, size):
         return 'http://www.gravatar.com/avatar/' + md5(self.email).hexdigest() + '?d=mm&s=' + str(size)

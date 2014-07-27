@@ -1,7 +1,7 @@
 #############################################################
 # 
 # Author: Peter Nguyen
-# Last Update: 07/18/2014
+# Last Update: 07/26/2014
 # Description: All modules configuration
 # Note: it will be different depends on the way we setup server
 # 

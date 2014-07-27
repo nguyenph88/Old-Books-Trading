@@ -89,9 +89,9 @@ def dangnhap():
       # log the user in using Flask-Login
       login_user(user, remember_me)
 
-      flash('Welcome %s' % user.fullname)
+      flash(u'Đăng nhập thành công. Xin chào %s' % user.fullname)
       return redirect(url_for('users.home'))
-    flash('Wrong email or password', 'error-message')
+    flash(u'Sai Email hoặc Mật khẩu', 'error-message')
   return render_template("users/login.html", form=form)
 
 @mod.route('/register/', methods=['GET', 'POST'])
@@ -114,7 +114,7 @@ def register():
     session['username'] = user.nickname
 
     # flash will display a message to the user
-    flash('Thanks for registering')
+    # flash('Thanks for registering')
     # redirect user to the 'home' method of the user module.
     return redirect(url_for('users.home'))
   return render_template("users/register.html", form=form)
@@ -124,7 +124,7 @@ def register():
 def thanhvien(nickname):
     user = User.query.filter_by(nickname = nickname).first()
     if user == None:
-        flash('User ' + nickname + ' not found.')
+        flash(u'Thành viên ' + nickname + ' không tồn tại.')
         return redirect(url_for('index'))
     return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
@@ -177,13 +177,25 @@ def dangsach():
     book = Book( truong=form.truong.data, khuvuc=request.form['khuvuc'], chuyennganh=request.form['chuyennganh'], giaovien=form.giaovien.data,\
         tensach=form.tensach.data, tacgia=form.tacgia.data, theloai=form.theloai.data, tinhtrang=form.tinhtrang.data, giaban=form.giaban.data, \
         noigapmat=form.noigapmat.data, thoigiangapmat=form.thoigiangapmat.data, lienhe=form.lienhe.data, \
-        author=g.user, thoigiandang=datetime.utcnow())
+        author=g.user, thoigiandang=datetime.utcnow(), image=(filename))
     # Insert the record in our database and commit it
     db.session.add(book)
     db.session.commit()
-    flash('book load already' + filename)
+
+    # Update number of books in db of that user
+    g.user.sosachdang = g.user.sosachdang + 1
+    db.session.add(g.user)
+    db.session.commit()
+    
+    flash(u'Đăng Sách Thành Công!')
     return redirect(url_for('users.home'))
   return render_template("users/dang-sach.html", form=form, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+
+@mod.route('/sach-da-dang/', methods=['GET', 'POST'])
+@login_required
+def sachdadang():
+
+  return render_template("users/sach-da-dang.html", is_auth = g.user.is_authenticated(), username = g.user.nickname, books=g.user.books)
 
 @mod.route('/dang-xuat/')
 @login_required
