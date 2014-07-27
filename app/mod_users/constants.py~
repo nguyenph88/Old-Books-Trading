@@ -27,5 +27,5 @@ STATUS = {
   ACTIVE: 'active',
 }
 
-listKhuVuc = [('hcm', u'Miền Nam'), ('hn', u'Miền Trung'), ('tr', u'Miền Bắc')]
+listKhuVuc = [('hcm', u'MIền Nam'), ('hn', u'Miền Trung'), ('tr', u'Miền Bắc')]
 listNganhHoc = [('it', 'cong nghe thong tin'), ('ck', 'co khi'), ('dien', 'dien tu')]

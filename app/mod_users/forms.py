@@ -10,6 +10,8 @@ from flask.ext.wtf import Form, RecaptchaField
 from wtforms import TextField, PasswordField, BooleanField, SelectField, FileField, validators
 from wtforms.validators import Required, EqualTo, Email, Length
 
+from app.mod_users.constants import listKhuVuc, listNganhHoc
+
 class LoginForm(Form):
   email = TextField('Emailaddress', [Required(), Email()])
   password = PasswordField('Password', [Required()])
@@ -43,8 +45,8 @@ class EditPasswordForm(Form):
 
 class DangSach(Form):
   truong = TextField('Truong Dang Hoc', [Required()])
-  khuvuc = SelectField(u'Khu Vuc', choices=[('hcm', 'Tp Ho chi Minh'), ('hn', 'Ha Noi'), ('tr', 'Mien Trung')])
-  chuyennganh = SelectField(u'Nganh Hoc', choices=[('it', 'cong nghe thong tin'), ('ck', 'co khi'), ('dien', 'dien tu')])
+  khuvuc = SelectField(u'Khu Vuc', choices=listKhuVuc)
+  chuyennganh = SelectField(u'Nganh Hoc', choices=listNganhHoc)
   giaovien = TextField('Giao Vien', [Required()])
 
   tensach = TextField('Ten Sach', [Required()])
