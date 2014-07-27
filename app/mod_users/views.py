@@ -2,14 +2,14 @@
 #############################################################
 # 
 # Author: Peter Nguyen, Hoc Duong
-# Last Update: 07/22/2014
+# Last Update: 07/26/2014
 # Description:   - Define how each route is handled
 #                - Handle all http/get/post requests
 # 
 #############################################################
 
 
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, send_from_directory
+from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
 from flask.ext.login import login_required, login_user, logout_user
 from werkzeug import check_password_hash, generate_password_hash, secure_filename
 from flask_wtf.file import FileField
@@ -165,13 +165,15 @@ def thaydoimatkhau():
                           is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/dang-sach/', methods=['GET', 'POST'])
+@login_required
 def dangsach():
   form = DangSach()
   if form.validate_on_submit():
-    #create an user instance not yet stored in the database
-    ser = User.query.get(session['user_id'])
     filename = secure_filename(form.imageFile.data.filename)
-    form.imageFile.data.save(uf + filename)
+    validatefile = request.files['imageFile']
+    # save the image only when user chooses a file
+    if validatefile:
+      form.imageFile.data.save(uf + filename)
 
     book = Book( truong=form.truong.data, khuvuc=request.form['khuvuc'], chuyennganh=request.form['chuyennganh'], giaovien=form.giaovien.data,\
         tensach=form.tensach.data, tacgia=form.tacgia.data, theloai=form.theloai.data, tinhtrang=form.tinhtrang.data, giaban=form.giaban.data, \
