@@ -6,6 +6,7 @@
 #                - Initialize database type
 #                - Register blueprints
 #                - 404 error page
+#                - 500 error page
 # 
 #############################################################
 import os
@@ -77,6 +78,10 @@ def not_found(error):
     """Handle 404 error page"""
     return render_template('404.html'), 404
 
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('500.html'), 500
 
 ##############################
 ### Define Blueprints here ###
