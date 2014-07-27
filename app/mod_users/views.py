@@ -59,7 +59,8 @@ def before_request():
 @mod.route('/ban-than/')
 @login_required
 def home():
-  return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.nickname)
+  #return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.nickname)
+  return redirect(url_for('users.thanhvien', nickname=g.user.nickname))
 
 @mod.route('/dang-nhap/', methods=['GET', 'POST'])
 def dangnhap():
@@ -124,9 +125,9 @@ def register():
 def thanhvien(nickname):
     user = User.query.filter_by(nickname = nickname).first()
     if user == None:
-        flash(u'Thành viên ' + nickname + ' không tồn tại.')
+        flash(u'Thành viên ' + nickname + u' không tồn tại.')
         return redirect(url_for('index'))
-    return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+    return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.nickname, books=g.user.books)
 
 @mod.route('/thay-doi-thong-tin/', methods = ['GET', 'POST'])
 @login_required
@@ -194,8 +195,16 @@ def dangsach():
 @mod.route('/sach-da-dang/', methods=['GET', 'POST'])
 @login_required
 def sachdadang():
-
   return render_template("users/sach-da-dang.html", is_auth = g.user.is_authenticated(), username = g.user.nickname, books=g.user.books)
+
+@mod.route('/<nickname>/sach-da-dang/', methods=['GET', 'POST'])
+@login_required
+def sachdadangpublic(nickname):
+    user = User.query.filter_by(nickname = nickname).first()
+    if user == None:
+        flash(u'Thành viên ' + nickname + u' không tồn tại.')
+        return redirect(url_for('index'))
+    return render_template("users/sach-da-dang-public.html", is_auth = g.user.is_authenticated(), username = g.user.nickname, books=user.books)
 
 @mod.route('/dang-xuat/')
 @login_required

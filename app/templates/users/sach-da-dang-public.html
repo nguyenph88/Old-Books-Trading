@@ -1,0 +1,52 @@
+﻿{% extends "base.html" %}
+{% block content %}
+
+
+    <section id="about-company" class="padding-top" data-wow-duration="400ms" data-wow-delay="400ms">
+        <div class="container">
+            <div class="row">
+                <div class="">
+                    <!-- in context table style -->
+                    <style type="text/css">
+                    .tg  {font-family:"noto sans", sans-serif;}
+                    .tg tr{color:gray;font-size:12px;padding:5px;overflow:hidden;word-break:normal;}
+                    .tg th{color:black;font-size:15px;font-weight:normal;padding:5px;;overflow:hidden;word-break:normal;}
+                    </style>
+
+                    <table class="tg table table-bordered table-striped table-hover" >
+                      <thead>
+                        <tr class="tg-head uppercase">
+                          <th>Tên Sách</th>
+                          <th>Tác Giả</th>
+                          <th>Trường</th>
+                          <th>Khu Vực</th>
+                          <th>Ngành</th>
+                          <th>Giáo Viên</th>
+                          <th>Giá Bán</th>
+                        </tr>
+                      </thead>
+                      {% for book in books %}
+                      <tbody>
+                        <tr>
+                          <td><a href="{{ url_for('books.thongtinsach', bookid=book.id) }}">{{ book.tensach }}</a></td>
+                          <td>{{ book.tacgia }}</td>
+                          <td>{{ book.truong }}</td>
+                          <td>{{ book.khuvuc }}</td>
+                          <td>{{ book.chuyennganh }}</td>
+                          <td>{{ book.giaovien }}</td>
+                          <td>{{ book.giaban }}</td>
+                        </tr>
+                      </tbody>
+                      {% endfor %}
+                    </table>
+                    
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#about-company-->
+
+
+{% endblock %}
