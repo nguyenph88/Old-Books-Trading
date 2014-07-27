@@ -29,7 +29,7 @@
                       {% for book in books %}
                       <tbody>
                         <tr>
-                          <td>{{ book.tensach }}</td>
+                          <td><a href="{{ url_for('books.thongtinsach', bookid=book.id) }}">{{ book.tensach }}</a></td>
                           <td>{{ book.tacgia }}</td>
                           <td>{{ book.truong }}</td>
                           <td>{{ book.khuvuc }}</td>
