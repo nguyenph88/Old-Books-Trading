@@ -11,7 +11,7 @@
                               <tr>
                                 <th><h2 align="left" style="font-size:35px;font-weight:bold;">{{ user.nickname }}</h2><br>
                                     <h3 align="left" >{% if user.fullname %}<i class="fa fa-angle-right"></i> Tên Đầy Đủ: {{user.fullname}}{% endif %} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Sách Đã Đăng: {{ user.sosachdang }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Sách Bán Được: {{ user.sosachdaban }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Sach Mua Được: {{ user.sosachdamua}}
-                                    <h3 align="left" >{% if user.about_me %}<i class="fa fa-angle-right"></i> Bản Thân: {{user.about_me}}{% endif %} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Đăng Nhập Cuối: {{ user.last_seen }}</h3>
+                                    <h3 align="left" >{% if user.about_me %}<i class="fa fa-angle-right"></i> Bản Thân: {{user.about_me}}{% endif %} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i> Đăng Nhập Cuối: {{ user.last_seen.strftime('%Y-%m-%d %H:%M:%S') }}</h3>
                                 </th>
                                 <th><img src="{{user.avatar(128)}}" style="border:8px solid white" align="right"></th>
                               </tr>
