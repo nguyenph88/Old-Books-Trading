@@ -125,6 +125,7 @@ def register():
     # flash will display a message to the user
     # flash('Thanks for registering')
     # redirect user to the 'home' method of the user module.
+    flash('chuyentay.com has been send email co your email adress, please visit to verify your account')
     return redirect(url_for('users.home'))
   return render_template("users/register.html", form=form)
 
@@ -283,6 +284,7 @@ def send_email():
  #user = User.query.filter_by(nickname = nickname).first()
     # ...
     follower_notification(g.user)
+    flash('chuyentay.com has been send email co your email adress, please visit to verify your account')
     return redirect(url_for('users.home'))
 
 
