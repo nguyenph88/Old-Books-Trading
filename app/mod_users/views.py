@@ -206,10 +206,64 @@ def sachdadangpublic(nickname):
         return redirect(url_for('index'))
     return render_template("users/sach-da-dang-public.html", is_auth = g.user.is_authenticated(), username = g.user.nickname, books=user.books)
 
+@mod.route('/sua-thong-tin-sach/<bookid>/', methods = ['GET', 'POST'])
+@login_required
+def suathongtinsach(bookid):
+  form = DangSach(request.form)
+  book = Book.query.get(bookid)
+
+  # Check if the book is not owned by user, then redirect to users.home
+  if book not in g.user.books:
+    flash(u"Bạn không sở hữu sách này")
+    return redirect(url_for('users.home'))
+  # This is the book is owned by user
+  elif form.validate_on_submit():
+        book.truong = form.truong.data
+        book.khuvuc = request.form['khuvuc']
+        book.chuyennganh = request.form['chuyennganh']
+        book.giaovien = form.giaovien.data
+
+        book.tensach = form.tensach.data
+        book.tacgia = form.tacgia.data
+        book.theloai = request.form['theloai']
+        book.tinhtrang = request.form['tinhtrang']
+        book.giaban = form.giaban.data
+        book.noigapmat = form.noigapmat.data
+        book.thoigiangapmat = form.thoigiangapmat.data
+        book.lienhe = form.lienhe.data
+        book.thoigiandang = datetime.utcnow()
+
+        # Handling file upload
+        filename = secure_filename(form.imageFile.data.filename)
+        validatefile = request.files['imageFile']
+        # save the image only when user chooses a file, otherwise keep the same picture
+        if validatefile:
+          form.imageFile.data.save(uf + filename)
+          book.image = filename
+        # Overwrite the current book in database
+        db.session.add(book)
+        db.session.commit()
+        
+        flash(u'Cập Nhật Thông Tin Sách Thành Công!')
+        return redirect(url_for('users.sachdadang'))
+  else:
+    form.truong.data = book.truong
+    form.giaovien.data = book.giaovien
+    form.tensach.data = book.tensach
+    form.tacgia.data = book.tacgia
+    form.giaban.data = book.giaban
+    form.noigapmat.data = book.noigapmat
+    form.thoigiangapmat.data = book.thoigiangapmat
+    form.lienhe.data = book.lienhe
+
+  return render_template("users/sua-thong-tin-sach.html", form=form, is_auth = g.user.is_authenticated(), username = g.user.nickname, \
+                          last_image=book.image)
+
+
 @mod.route('/dang-xuat/')
 @login_required
 def dangxuat():
   logout_user()
   session.clear()
-  return render_template("users/dang-xuat.html")
+  return redirect(url_for('users.dangnhap'))
 

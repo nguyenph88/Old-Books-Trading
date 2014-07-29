@@ -10,7 +10,7 @@ from flask.ext.wtf import Form, RecaptchaField
 from wtforms import TextField, PasswordField, BooleanField, SelectField, FileField, validators
 from wtforms.validators import Required, EqualTo, Email, Length
 
-from app.mod_users.constants import listKhuVuc, listNganhHoc
+from app.mod_users.constants import listKhuVuc, listNganhHoc, listTheLoaiSach, listTinhTrangSach
 
 class LoginForm(Form):
   email = TextField('Emailaddress', [Required(), Email()])
@@ -51,8 +51,8 @@ class DangSach(Form):
 
   tensach = TextField('Ten Sach', [Required()])
   tacgia = TextField('Ten Tac Gia', [Required()])
-  theloai = TextField('The Loai Sach', [Required()])
-  tinhtrang = TextField('Truong Dang Hoc', [Required()])
+  theloai = SelectField(u'The Loai Sach', choices=listTheLoaiSach)
+  tinhtrang = SelectField(u'Tinh trang sach', choices=listTinhTrangSach)
   giaban = TextField('Gia Ban', [Required()])
   thoigiangapmat = TextField('thoi gian va ngay hen', [Required()])
   noigapmat = TextField('Dia Diem Uu Tien', [Required()])
@@ -63,7 +63,6 @@ class DangSach(Form):
 
   accept_tos = BooleanField('I accept the TOS', [Required()])
   #recaptcha = RecaptchaField()
-
 
 
 

@@ -38,7 +38,7 @@
                           <td>{{ book.giaban }}</td>
                           <td>
                             <a href="<?php bloginfo('url');?>/your-listings/?Delete=<?php echo encrypt($Post_ID);?>">Xóa</a> | 
-                            <a href="<?php bloginfo('url');?>/update/?Post_ID=<?php echo encrypt($Post_ID);?>">Cập Nhật</a>
+                            <a href="{{ url_for('users.suathongtinsach', bookid=book.id) }}">Cập Nhật</a>
                           </td>
                         </tr>
                       </tbody>

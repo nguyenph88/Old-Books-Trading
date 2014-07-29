@@ -91,23 +91,8 @@ class Book(db.Model):
     # Foreign Key linked to a table then a specific field
     user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
 
-    '''
-    def __init__(self, truong=None, khuvuc=None, chuyennganh=None, giaovien=None, \
-                tensach=None, tacgia=None, theloai=None, tinhtrang=None, giaban=None, \
-                noigapmat=None, thoigiangapmat=None, lienhe=None):
-        this.truong = truong
-        this.khuvuc = khuvuc
-        this.chuyennganh = chuyennganh
-        this.giaovien = giaovien
-        this.tensach = tensach
-        this.tacgia = tacgia
-        this.theloai = theloai
-        this.theloai = theloai
-        this.tinhtrang = tinhtrang
-        this.giaban = giaban
-        this.noigapmat = noigapmat
-        this.thoigiangapmat = thoigiangapmat
-        this.lienhe = lienhe
-    '''
+    def get_id(self):
+        return unicode(self.id)
+
     def __repr__(self):
-        return '<Book %r>' % (self.body)
+        return '<Book %r>' % (self.tensach)

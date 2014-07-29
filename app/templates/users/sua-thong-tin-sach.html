@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block css %}
 	<link href="/static/css/formstyle.css" rel="stylesheet">
@@ -104,7 +104,11 @@
                               <td><h3>VD: 'email mình ở địa chỉ conco@bebe.com', 'add fb và PM mình nhé, link: fb.com/concobebe', 'Qua skype: concobebe' v.v... </h3></td>
                             </tr>
                             <tr>
-                              <td><h3>Hình Ảnh:</h3></td>
+                              <td><h3>Hình Đã Đăng:</h3></td>
+                              <td><img src="/static/images/books/{{ last_image }}" height="80px"></td>
+                            </tr>
+                            <tr>
+                              <td><h3>Sửa Hình Ảnh:</h3></td>
                               <td>{{ form.imageFile }}</td>
                             </tr>
                             </table>
@@ -129,3 +133,4 @@
         </div>
     </section>
 {% endblock %}
+
