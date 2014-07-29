@@ -17,7 +17,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager, login_required
 from flask.ext.mail import Mail, Message
 from config import ADMINS
-
+from threading import Thread
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -37,11 +37,16 @@ uf = app.config['UPLOAD_FOLDER']
 
 
 #function that sends out email
+def send_async_email(msg):
+    mail.send(msg)
+
+
 def send_email(subject, sender, recipients, html_body):
 
     mmsg = Message(subject, sender = sender, recipients = recipients)
     mmsg.html = html_body
-    mail.send(mmsg)
+    thr = Thread(target = send_async_email, args = [mmsg])
+    thr.start()
 
 def follower_notification(follower):
     send_email('chuyentay.vn',
