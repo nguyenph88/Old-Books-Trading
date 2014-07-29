@@ -1,6 +1,6 @@
 #############################################################
 # 
-# Author: Peter Nguyen
+# Author: Peter Nguyen, Hoc Duong
 # Last Update: 07/18/2014
 # Description:   - Main setup for the app
 #                - Initialize database type
@@ -15,12 +15,18 @@ import sys
 from flask import Flask, render_template, g, session
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager, login_required
+from flask.ext.mail import Mail, Message
+from config import ADMINS
+
 
 app = Flask(__name__)
 app.config.from_object('config')
 
 # Initialize the database, which will be using through all module using "from app import db"
 db = SQLAlchemy(app)
+
+#Initialize the email
+mail = Mail(app)
 
 # Initialize login manager to manager user session login
 lm = LoginManager()
@@ -29,6 +35,19 @@ lm.init_app(app)
 # Upload Folder
 uf = app.config['UPLOAD_FOLDER']
 
+
+#function that sends out email
+def send_email(subject, sender, recipients, html_body):
+
+    mmsg = Message(subject, sender = sender, recipients = recipients)
+    mmsg.html = html_body
+    mail.send(mmsg)
+
+def follower_notification(follower):
+    send_email('chuyentay.vn',
+        ADMINS[0],
+        ['hocdb@student.ptithcm.edu.vn'],
+        render_template("follower_email.html", follower = follower))
 ############################
 ### Configure Secret Key ###
 ############################

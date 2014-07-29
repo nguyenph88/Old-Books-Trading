@@ -16,7 +16,7 @@ from flask_wtf.file import FileField
 
 from datetime import datetime
 from flask.ext.babel import Babel
-from app import db, lm, uf
+from app import db, lm, uf, follower_notification
 from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach
 from app.mod_users.models import User, Book
 
@@ -38,6 +38,13 @@ lm.login_message = u"Xin vui lòng đăng nhập để tiếp tục."
 ###################################
 ########## View Handling ##########
 ###################################
+
+ALLOWED_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 @lm.user_loader
 def load_user(id):
@@ -113,7 +120,8 @@ def register():
     # Log the user in, as he now has an id and name
     session['user_id'] = user.id
     session['username'] = user.nickname
-
+    #send email to verify
+    follower_notification(g.user)
     # flash will display a message to the user
     # flash('Thanks for registering')
     # redirect user to the 'home' method of the user module.
@@ -169,12 +177,14 @@ def thaydoimatkhau():
 def dangsach():
   form = DangSach()
   if form.validate_on_submit():
-    filename = secure_filename(form.imageFile.data.filename)
     validatefile = request.files['imageFile']
     # save the image only when user chooses a file
-    if validatefile:
+    if validatefile and allowed_file(validatefile.filename):
+      filename = secure_filename(form.imageFile.data.filename)
       form.imageFile.data.save(uf + filename)
-
+    else:
+      flash('please choose image File')
+      return render_template("users/dang-sach.html", form=form, is_auth = g.user.is_authenticated(), username = g.user.nickname)
     book = Book( truong=form.truong.data, khuvuc=request.form['khuvuc'], chuyennganh=request.form['chuyennganh'], giaovien=form.giaovien.data,\
         tensach=form.tensach.data, tacgia=form.tacgia.data, theloai=form.theloai.data, tinhtrang=form.tinhtrang.data, giaban=form.giaban.data, \
         noigapmat=form.noigapmat.data, thoigiangapmat=form.thoigiangapmat.data, lienhe=form.lienhe.data, \
@@ -267,3 +277,20 @@ def dangxuat():
   session.clear()
   return redirect(url_for('users.dangnhap'))
 
+#test send email
+@mod.route('/email/')
+def send_email():
+ #user = User.query.filter_by(nickname = nickname).first()
+    # ...
+    follower_notification(g.user)
+    return redirect(url_for('users.home'))
+
+
+#verify from user's email
+@mod.route('/verify/<nickname>')
+def verify(nickname):
+  user = User.query.filter_by(nickname = nickname).first()
+  user.activation_code = '1'
+  db.session.commit()
+  flash('verify account ' + user.activation_code)
+  return redirect(url_for('users.home'))

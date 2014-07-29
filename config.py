@@ -1,6 +1,6 @@
 #############################################################
 # 
-# Author: Peter Nguyen
+# Author: Peter Nguyen, Hoc Duong
 # Last Update: 07/26/2014
 # Description: All modules configuration
 # Note: it will be different depends on the way we setup server
@@ -40,3 +40,15 @@ RECAPTCHA_OPTIONS = {'theme': 'white'}
 
 # Upload folder for the book image
 UPLOAD_FOLDER =  os.path.join(_basedir, 'app/static/images/books/')
+
+
+#connect to mail host and mail port
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'taychuyen822@gmail.com'
+MAIL_PASSWORD = '123456789Z7'
+
+# administrator list
+ADMINS = ['taychuyen822@gmail.com']
