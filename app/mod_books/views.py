@@ -13,7 +13,7 @@ from flask import Blueprint, request, render_template, flash, g, session, redire
 from werkzeug import check_password_hash, generate_password_hash
 from flask.ext.login import login_required
 
-from app import db, lm
+from app import db, lm, do_qsort_swap
 from app.mod_users.models import User, Book
 
 from datetime import datetime
@@ -54,7 +54,12 @@ def before_request():
 
 @mod.route('/')
 def newlistings():
-  return render_template("books/newlistings.html")
+  books = Book.query.all()
+  ltime = [b.thoigiandang for b in books]
+  do_qsort_swap(ltime)
+  lbooks = [Book.query.filter_by(thoigiandang = l).first() for l in ltime] 
+  #return render_template("books/newlistings.html") 
+  return render_template("books/newBooks.html", books=lbooks, nickname = 'concobebe', is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/<bookid>')
 def thongtinsach(bookid):
