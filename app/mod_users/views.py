@@ -278,13 +278,15 @@ def xoasach(bookid):
     flash(u"Bạn không sở hữu sách này")
     return redirect(url_for('users.home'))
   else:
+    # remove the book from list
     db.session.delete(book)
+    # Update number of books in db of that user
+    g.user.sosachdang = g.user.sosachdang - 1
+    db.session.add(g.user)
     db.session.commit()
+
     flash(u"Bạn da xoa sach")
     return render_template("users/sach-da-dang.html", is_auth = g.user.is_authenticated(), username = g.user.nickname, books=g.user.books)
-
-
-
 
 @mod.route('/dang-xuat/')
 @login_required
