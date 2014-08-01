@@ -270,6 +270,21 @@ def suathongtinsach(bookid):
   return render_template("users/sua-thong-tin-sach.html", form=form, is_auth = g.user.is_authenticated(), username = g.user.nickname, \
                           last_image=book.image)
 
+@mod.route('/xoa-sach/<bookid>/', methods = ['GET', 'POST'])
+@login_required
+def xoasach(bookid):
+  book = Book.query.get(bookid)
+  if book not in g.user.books:
+    flash(u"Bạn không sở hữu sách này")
+    return redirect(url_for('users.home'))
+  else:
+    db.session.delete(book)
+    db.session.commit()
+    flash(u"Bạn da xoa sach")
+    return render_template("users/sach-da-dang.html", is_auth = g.user.is_authenticated(), username = g.user.nickname, books=g.user.books)
+
+
+
 
 @mod.route('/dang-xuat/')
 @login_required
