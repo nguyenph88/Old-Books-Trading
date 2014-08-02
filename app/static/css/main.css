@@ -1030,6 +1030,7 @@ ul.elements li > i{
 
 .portfolio-thumb {
   position: relative;
+  
 }
 
 .portfolio-thumb img {
@@ -1094,9 +1095,21 @@ ul.elements li > i{
 }
 
 .portfolio-info {
-  overflow: hidden;
   margin-bottom: 30px;
+  border: 1px dotted gray;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
 }
+
+.portfolio-info-table{
+  width: 220px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 400;
+}
+
 
 .portfolio-info h2 {
   font-size: 18px;

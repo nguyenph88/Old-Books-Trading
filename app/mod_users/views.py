@@ -244,6 +244,7 @@ def suathongtinsach(bookid):
         book.lienhe = form.lienhe.data
         book.thoigiandang = datetime.utcnow()
 
+        '''
         # Handling file upload
         filename = secure_filename(form.imageFile.data.filename)
         validatefile = request.files['imageFile']
@@ -251,6 +252,7 @@ def suathongtinsach(bookid):
         if validatefile:
           form.imageFile.data.save(uf + filename)
           book.image = filename
+        '''
         # Overwrite the current book in database
         db.session.add(book)
         db.session.commit()

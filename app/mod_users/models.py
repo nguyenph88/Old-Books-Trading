@@ -94,5 +94,11 @@ class Book(db.Model):
     def get_id(self):
         return unicode(self.id)
 
+    def get_short_title(self):
+        if len(self.tensach) < 33:
+            return self.tensach
+        else:
+            return (self.tensach[0:30] + "...")
+
     def __repr__(self):
         return '<Book %r>' % (self.tensach)

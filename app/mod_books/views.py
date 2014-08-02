@@ -59,7 +59,7 @@ def newlistings():
   do_qsort_swap(ltime)
   lbooks = [Book.query.filter_by(thoigiandang = l).first() for l in ltime] 
   #return render_template("books/newlistings.html") 
-  return render_template("books/newBooks.html", books=lbooks, nickname = 'concobebe', is_auth = g.user.is_authenticated(), username = g.user.nickname)
+  return render_template("books/newBooks.html", books=lbooks, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/<bookid>')
 def thongtinsach(bookid):
@@ -67,4 +67,4 @@ def thongtinsach(bookid):
     if book == None:
         flash('Book ' + bookid + ' not found.')
         return redirect(url_for('books.newlistings'))
-    return render_template('books/thong-tin-sach.html', book=book, nickname = 'concobebe', is_auth = g.user.is_authenticated(), username = g.user.nickname)
+    return render_template('books/thong-tin-sach.html', book=book, is_auth = g.user.is_authenticated(), username = g.user.nickname)
