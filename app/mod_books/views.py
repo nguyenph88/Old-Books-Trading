@@ -15,6 +15,7 @@ from flask.ext.login import login_required
 
 from app import db, lm, do_qsort_swap
 from app.mod_users.models import User, Book
+from app.mod_books.forms import TimSach
 
 from datetime import datetime
 
@@ -58,7 +59,7 @@ def sachmoidang():
   ltime = [b.thoigiandang for b in books]
   do_qsort_swap(ltime)
   lbooks = [Book.query.filter_by(thoigiandang = l).first() for l in ltime] 
-  #return render_template("books/newlistings.html") 
+  #return render_template("books/sachmoidang.html") 
   return render_template("books/sach-moi-dang.html", books=lbooks, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/<bookid>')
@@ -66,5 +67,18 @@ def thongtinsach(bookid):
     book = Book.query.filter_by(id = bookid).first()
     if book == None:
         flash('Book ' + bookid + ' not found.')
-        return redirect(url_for('books.newlistings'))
+        return redirect(url_for('books.sachmoidang'))
     return render_template('books/thong-tin-sach.html', book=book, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+
+@mod.route('/tim-sach/', methods = ['GET', 'POST'])
+def timsach():
+    form = TimSach(request.form)
+    if form.validate_on_submit():
+      tensach = form.tensach.data
+      return redirect(url_for('books.ketquatim', bookname=tensach))
+    return render_template('books/tim-sach.html', form = form, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+
+@mod.route('/ket-qua-tim/<bookname>', methods = ['GET', 'POST'])
+def ketquatim(bookname):
+    # su dung template giong nhu dang-sach-moi de dua ra ket qua tim kiem
+    return render_template('books/ket-qua-tim.html', is_auth = g.user.is_authenticated(), username = g.user.nickname)

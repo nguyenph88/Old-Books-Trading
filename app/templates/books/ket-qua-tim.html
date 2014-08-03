@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <section id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="portfolio-items">
+                	{% for book in books %}
+                    <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                        <div class="portfolio-wrapper" style="padding: 3px; margin: 5px;">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb" style="border: 1px dotted gray;">
+                                    <!-- <img src="/static/images/books/{{ book.image }}" class="img-responsive" alt="" height="300px"> -->
+                                    <img src="/static/images/books/{{ book.image }}" alt="" height="300px">
+                                </div>
+                                <div class="portfolio-view">
+                                    <ul class="nav nav-pills">
+                                        <li><a href="{{ url_for('books.thongtinsach', bookid=book.id ) }}" title="Thông Tin Chi Tiết"><i class="fa fa-link"></i></a></li>
+                                        <li><a href="/static/images/books/{{ book.image }}" data-lightbox="example-set" title="Phóng To"><i class="fa fa-eye"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="portfolio-info">
+                                <table class="portfolio-info-table">
+                                    <tr>
+                                        <td colspan="2" style="font-size: 18px; padding-top: 2px; padding-bottom: 2px;"><a href="{{ url_for('books.thongtinsach', bookid=book.id ) }}">{{ book.get_short_title() }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-bottom: 2px; text-overflow: ellipsis; overflow: hidden;"><a href="{{ url_for('users.thanhvien', nickname=book.author.nickname ) }}"><img src="{{ book.author.avatar(20) }}"> {{ book.author.nickname }}</a></td>
+                                        <td style="font-size: 18px; color: #4D70DB; font-weight:bold; padding-bottom: 2px;">$ {{ book.giaban }}</td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+              	</div>
+                <div class="portfolio-pagination">
+                    <ul class="pagination">
+                      
+                      <li><a href="next">next</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#portfolio-->
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="/static/js/jquery.isotope.min.js"></script>
+{% endblock %}

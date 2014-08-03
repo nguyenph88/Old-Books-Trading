@@ -1,0 +1,36 @@
+﻿{% extends "base.html" %}
+
+{% block css %}
+	<link href="/static/css/formstyle.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
+        <div class="container">
+            <div class="row">
+                      <form method="POST" action="." class="form" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        {{ form.hidden_tag() }}
+                        	<font face="Open Sans Condensed" color="#3399FF" size="6px"><i class="fa fa-search fa-2x"></i> Tìm Kiếm:</font><br/><br/>
+                            <table style="width:900px;">
+                              <tr>
+                                <td style="padding:10px;"><h3>- Nhập tên sách hoặc bất kỳ.<br />- Bấm và <a href="#">đây</a> để chọn tìm kiếm nâng cao.</br></h3></td>
+                               </tr>
+                              <tr>
+                                <td>&nbsp;&nbsp;{{ form.tensach(size=50) }} <input type="submit" value="Tìm Kiếm"></br></td>
+                              </tr>
+                            </table>
+                            <hr></hr>
+                            <br>
+                        <h3>Nhập captcha:</h3>
+                        {{ form.recaptcha }}
+                        </br> 
+                      </form>
+                      </br>
+                      
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
