@@ -56,20 +56,24 @@ def check_authenticate():
 @mod.route('/gioi-thieu/')
 def gioithieu():
   is_authenticated, usr = check_authenticate()
-  return render_template("info/gioi-thieu.html", user=g.user, is_auth = is_authenticated, username=usr)
+  return render_template("info/gioi-thieu.html", is_auth = is_authenticated, username=usr)
 
 @mod.route('/huong-dan-su-dung/')
 def huongdansudung():
-  return render_template("info/huong-dan-su-dung.html")
+  is_authenticated, usr = check_authenticate()
+  return render_template("info/huong-dan-su-dung.html", is_auth = is_authenticated, username=usr)
 
 @mod.route('/bao-mat/')
 def baomat():
-  return render_template("info/bao-mat.html")
+  is_authenticated, usr = check_authenticate()
+  return render_template("info/bao-mat.html", is_auth = is_authenticated, username=usr)
 
 @mod.route('/lien-he/')
 def lienhe():
-  return render_template("info/lien-he.html")
+  is_authenticated, usr = check_authenticate()
+  return render_template("info/lien-he.html", is_auth = is_authenticated, username=usr)
 
 @mod.route('/quyen-loi-trach-nhiem/')
 def quyenloitrachnhiem():
-  return render_template("info/quyen-loi-trach-nhiem.html")
+  is_authenticated, usr = check_authenticate()
+  return render_template("info/quyen-loi-trach-nhiem.html", is_auth = is_authenticated, username=usr)
