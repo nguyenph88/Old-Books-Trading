@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-8">
                     <div class="project-name overflow">
-                        <h2 class="bold"><b>{{ book.tensach }}</b> - {{ book.tacgia }} ({{ book.giaban }} vnd)</h2>
+                        <h2 class="bold"><b><font color="blue">{{ book.tensach }}</b></font> - {{ book.tacgia }} ({{ book.giaban }} vnd)</h2>
                         <ul class="nav navbar-nav navbar-default">
                             <li><a href="#"><i class="fa fa-list"></i>{{ book.theloai }}</a></li>
                             <li><a href="#"><i class="fa fa-clock-o"></i>{{ book.thoigiandang }}</a></li>
@@ -64,7 +64,7 @@
                         <table class="tg">
                             <tr>
                                 <th><h2><b>Giá Bán:</b> {{ book.giaban }} vnđ</h2></th>
-                                <th><a href="#" class="btn btn-common uppercase">Liên Hệ Mua</a></th>
+                                <th><a href="{{ url_for('books.lienhemua', bookid = book.id) }}" class="btn btn-common uppercase">Liên Hệ Mua</a></th>
                             </tr>
                         </table>
                         

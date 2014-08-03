@@ -1,0 +1,94 @@
+﻿{% extends "base.html" %}
+{% block content %}
+
+    <section id="portfolio-information" class="padding-top">
+        <div class="container">
+            <div class="row">
+            	<h2 class="bold" style="padding: 10px;"><b>Bạn muốn trao đổi hoặc mua sách bên dưới, xin vui lòng điền kiểm tra thông tin trước khi liên hệ:</b><br /></h2>
+                <div class="col-sm-4">
+                    <img src="/static/images/books/{{ book.image }}" class="img-responsive" alt="" width="300px">
+                </div>
+                <div class="col-sm-8">
+                    <div class="project-name overflow">
+                        <h2 class="bold"><b><font color="blue">{{ book.tensach }}</b></font> - {{ book.tacgia }} ({{ book.giaban }} vnd)</h2>
+                        <ul class="nav navbar-nav navbar-default">
+                            <li><a href="#"><i class="fa fa-list"></i>{{ book.theloai }}</a></li>
+                            <li><a href="#"><i class="fa fa-clock-o"></i>{{ book.thoigiandang }}</a></li>
+                        </ul>
+                    </div>
+                    <!-- thong tin ca nhan -->
+                    <div class="project-info overflow">
+                        <!-- in context table style -->
+                        <style type="text/css">
+                        .tg  {border-collapse:collapse;border-spacing:0; width:100%;text-align: left;}
+                        .tg td{font-family:"noto sans", sans-serif;color:gray;font-size:12px;padding:5px;overflow:hidden;word-break:normal;}
+                        .tg th{font-family:"noto sans", sans-serif;color:gray;font-size:12px;font-weight:normal;padding:5px;;overflow:hidden;word-break:normal;}
+                        </style>
+
+                        <table class="tg">
+                          <tr>
+                            <th class="tg-0ord"><i class="fa fa-angle-right"></i> Trường: {{ book.truong }}</th>
+                            <th class="tg-031e"><i class="fa fa-angle-right"></i> Khu Vực: {{ book.khuvuc }}</th>
+                          </tr>
+                          <tr>
+                            <td class="tg-0ord"><i class="fa fa-angle-right"></i> Chuyên Ngành: {{ book.chuyennganh }}</td>
+                            <td class="tg-031e"><i class="fa fa-angle-right"></i> Giáo Viên Dạy: {{ book.giaovien }}</td>
+                          </tr>
+                        </table>
+
+                    </div>
+                    <div class="project-info overflow">
+                        <form method="POST" action="." class="form" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        {{ form.hidden_tag() }}
+                        <h3>Thông Tin Giao Dịch:</h3>
+                        <ul class="elements">
+                            <li><i class="fa fa-angle-right"></i> <i style="color:black;">{{ book.author.nickname }}</i> muốn gặp lúc <i style="color:black;">{{ book.thoigiangapmat }}</i> tại <i style="color:black;">{{ book.noigapmat }}</i> và liên lạc bằng cách: <i style="color:black;">{{ book.lienhe }}</i></li>
+                            <table>
+                                <tr>
+                                    <td><i class="fa fa-angle-right"></i> Đổi thời gian gặp: </td>
+                                    <td>{{ form.thoigian(size=60, title='Đồng ý hoặc thay đổi') }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-angle-right"></i> Đổi nơi gặp: </td>
+                                    <td>{{ form.diadiem(size=60, title='Đồng ý hoặc thay đổi') }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-angle-right"></i> Thông tin liên lạc của bạn: </td>
+                                    <td>{{ form.lienhe(size=60, title="Làm sao để liên hệ với bạn") }}</td>
+                                </tr>
+                            </table>
+                        </ul>
+                    </div>
+                    <div class="client overflow">
+                        <h3>Thông tin giao dịch giữa:</h3>
+                        <ul class="nav navbar-nav navbar-default">
+                            <li><a href="{{ url_for('users.thanhvien', nickname = nickname) }}"><img src="{{book.author.avatar(24)}}"> {{ book.author.nickname }}</a> <a href="{{ url_for('users.thanhvien', nickname = user.nickname) }}"><img src="{{user.avatar(24)}}"> {{ user.nickname }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="live-preview">
+                        <table class="tg">
+                            <tr>
+                                <th><h2><b>Giá Bán:</b> {{ book.giaban }} vnđ</h2></th>
+                                <th>{{ form.recaptcha }}</br></th>
+                                <th> 
+                                    <input type="submit" value="Liên Hệ" class="btn btn-common uppercase">
+                                    </form>
+                                    <!-- het form -->
+                                </th>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <!--/#portfolio-information-->
+
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="/static/js/jquery.isotope.min.js"></script>
+{% endblock %}

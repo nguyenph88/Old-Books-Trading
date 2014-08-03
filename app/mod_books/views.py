@@ -17,7 +17,8 @@ from app import db, lm, do_qsort_swap
 from app.mod_users.models import User
 from app.mod_books.models import Book
 from datetime import datetime
-from app.mod_books.forms import searchBooks
+from app.mod_books.forms import searchBooks, lienHeMua
+
 ###################################
 ## Initial setup for this module ##
 ###################################
@@ -69,19 +70,6 @@ def thongtinsach(bookid):
         return redirect(url_for('books.sachmoidang'))
     return render_template('books/thong-tin-sach.html', book=book, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
-@mod.route('/tim-sach/', methods = ['GET', 'POST'])
-def timsach():
-    form = TimSach(request.form)
-    if form.validate_on_submit():
-      tensach = form.tensach.data
-      return redirect(url_for('books.ketquatim', bookname=tensach))
-    return render_template('books/tim-sach.html', form = form, is_auth = g.user.is_authenticated(), username = g.user.nickname)
-
-@mod.route('/ket-qua-tim/<bookname>', methods = ['GET', 'POST'])
-def ketquatim(bookname):
-    # su dung template giong nhu dang-sach-moi de dua ra ket qua tim kiem
-    return render_template('books/ket-qua-tim.html', is_auth = g.user.is_authenticated(), username = g.user.nickname)
-
 @mod.route('/searchBooks/',  methods=['GET', 'POST'])
 def searchbooks():
   form = searchBooks()
@@ -94,3 +82,23 @@ def searchbooks():
     lbooks = Book.query.filter(Book.tensach.like('%'+ tensach +'%'), Book.khuvuc.like('%'+ khuvuc +'%'), Book.chuyennganh.like('%'+ chuyennganh +'%') ).all()
     return render_template("books/searchBooks.html", form=form, books=lbooks, is_auth = g.user.is_authenticated(), username = g.user.nickname)
   return render_template('books/searchBooks.html',  form=form)
+
+@mod.route('/lien-he-mua/<bookid>/')
+def lienhemua(bookid):
+    book = Book.query.filter_by(id = bookid).first()
+    form = lienHeMua()
+
+    if book == None:
+        flash('Book ' + bookid + ' not found.')
+        return redirect(url_for('books.sachmoidang'))
+    elif book.author == g.user:
+        flash(u'Bạn không thể mua sách của chính mình đăng.')
+        return redirect(url_for('books.sachmoidang'))
+    elif form.validate_on_submit():
+        buyer_diadiem = form.diadiem.data
+        buyer_thoigian = form.thoigian.data
+        buyer_lienhe - form.lienhe.data
+        # gui tat ca cac thong tin nay den email cua nguoi mua
+        return redirect(url_for('books.sachmoidang'))
+    return render_template('books/lien-he-mua.html', book=book, user = g.user, form=form, \
+                            is_auth = g.user.is_authenticated(), username = g.user.nickname)
