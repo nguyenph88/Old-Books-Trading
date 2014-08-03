@@ -91,7 +91,7 @@ def lienhemua(bookid):
     if book == None:
         flash('Book ' + bookid + ' not found.')
         return redirect(url_for('books.sachmoidang'))
-    elif book.author == g.user:
+    elif book.author.nickname == g.user.nickname:
         flash(u'Bạn không thể mua sách của chính mình đăng.')
         return redirect(url_for('books.sachmoidang'))
     elif form.validate_on_submit():
