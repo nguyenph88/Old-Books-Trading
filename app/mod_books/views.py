@@ -53,13 +53,13 @@ def before_request():
     db.session.commit()
 
 @mod.route('/')
-def newlistings():
+def sachmoidang():
   books = Book.query.all()
   ltime = [b.thoigiandang for b in books]
   do_qsort_swap(ltime)
   lbooks = [Book.query.filter_by(thoigiandang = l).first() for l in ltime] 
   #return render_template("books/newlistings.html") 
-  return render_template("books/newBooks.html", books=lbooks, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+  return render_template("books/sach-moi-dang.html", books=lbooks, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/<bookid>')
 def thongtinsach(bookid):
