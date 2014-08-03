@@ -18,8 +18,8 @@ from datetime import datetime
 from flask.ext.babel import Babel
 from app import db, lm, uf, follower_notification
 from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach
-from app.mod_users.models import User, Book
-
+from app.mod_users.models import User
+from app.mod_books.models import Book
 from datetime import datetime
 
 ###################################

@@ -14,11 +14,10 @@ from werkzeug import check_password_hash, generate_password_hash
 from flask.ext.login import login_required
 
 from app import db, lm, do_qsort_swap
-from app.mod_users.models import User, Book
-from app.mod_books.forms import TimSach
-
+from app.mod_users.models import User
+from app.mod_books.models import Book
 from datetime import datetime
-
+from app.mod_books.forms import searchBooks
 ###################################
 ## Initial setup for this module ##
 ###################################
@@ -82,3 +81,16 @@ def timsach():
 def ketquatim(bookname):
     # su dung template giong nhu dang-sach-moi de dua ra ket qua tim kiem
     return render_template('books/ket-qua-tim.html', is_auth = g.user.is_authenticated(), username = g.user.nickname)
+
+@mod.route('/searchBooks/',  methods=['GET', 'POST'])
+def searchbooks():
+  form = searchBooks()
+  if form.validate_on_submit():
+
+    tensach = form.tensach.data
+    khuvuc = form.khuvuc.data
+    chuyennganh = form.chuyennganh.data
+
+    lbooks = Book.query.filter(Book.tensach.like('%'+ tensach +'%'), Book.khuvuc.like('%'+ khuvuc +'%'), Book.chuyennganh.like('%'+ chuyennganh +'%') ).all()
+    return render_template("books/searchBooks.html", form=form, books=lbooks, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+  return render_template('books/searchBooks.html',  form=form)

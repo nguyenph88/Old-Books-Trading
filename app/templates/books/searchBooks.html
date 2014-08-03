@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block css %}
+	<link href="/static/css/formstyle.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title">Tìm Sách</h1>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+   </section>
+    <!--/#page-breadcrumb-->
+
+    <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
+        <div class="container">
+            <div class="row">
+                      <form method="POST" action="." class="form" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        {{ form.hidden_tag() }}
+                         <div>                                
+                              <td><h3>Tên Sách:*</h3></td>
+                              <td>{{ form.tensach(size=50, title="Tên càng chi tiết và rõ ràng cùng giúp kết quả tìm tốt hơn") }}</td>
+          
+                              <td>{{ form.khuvuc }}</td>
+                                
+                              <td>{{ form.chuyennganh }}</td>
+
+                              <input type="submit" value="Tìm Sách">
+                          </div>                                                 	                       
+                       
+                      </form>
+                      </br>
+                      <div class="portfolio-items">
+                  {% for book in books %}
+                    <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                        <div class="portfolio-wrapper" style="padding: 3px; margin: 5px;">
+                            <div class="portfolio-single">
+                                <div class="portfolio-thumb" style="border: 1px dotted gray;">
+                                    <!-- <img src="/static/images/books/{{ book.image }}" class="img-responsive" alt="" height="300px"> -->
+                                    <img src="/static/images/books/{{ book.image }}" alt="" height="300px">
+                                </div>
+                                <div class="portfolio-view">
+                                    <ul class="nav nav-pills">
+                                        <li><a href="{{ url_for('books.thongtinsach', bookid=book.id ) }}" title="Thông Tin Chi Tiết"><i class="fa fa-link"></i></a></li>
+                                        <li><a href="/static/images/books/{{ book.image }}" data-lightbox="example-set" title="Phóng To"><i class="fa fa-eye"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="portfolio-info">
+                                <table class="portfolio-info-table">
+                                    <tr>
+                                        <td colspan="2" style="font-size: 18px; padding-top: 2px; padding-bottom: 2px;"><a href="{{ url_for('books.thongtinsach', bookid=book.id ) }}">{{ book.get_short_title() }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-bottom: 2px; text-overflow: ellipsis; overflow: hidden;"><a href="{{ url_for('users.thanhvien', nickname=book.author.nickname ) }}"><img src="{{ book.author.avatar(20) }}"> {{ book.author.nickname }}</a></td>
+                                        <td style="font-size: 18px; color: #4D70DB; font-weight:bold; padding-bottom: 2px;">$ {{ book.giaban }}</td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>     
+            </div>
+        </div>
+    </section>
+{% endblock %}

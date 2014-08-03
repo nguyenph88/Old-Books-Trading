@@ -7,13 +7,14 @@
 #############################################################
 from flask import request
 from flask.ext.wtf import Form, RecaptchaField
-from wtforms import TextField, validators, RadioField
+from wtforms import TextField, PasswordField, BooleanField, SelectField, FileField, validators
 from wtforms.validators import Required, EqualTo, Email, Length
+from app.mod_users.constants import listKhuVuc, listNganhHoc, listTheLoaiSach, listTinhTrangSach
 
-class TimSach(Form):
-  tensach = TextField('Truong Dang Hoc')
-  #recaptcha = RecaptchaField()
-
+class searchBooks(Form):
+	khuvuc = SelectField(u'Khu Vuc', choices=listKhuVuc)
+  	chuyennganh = SelectField(u'Nganh Hoc', choices=listNganhHoc)
+  	tensach = TextField('Ten Sach', [Required()])
 
 
 
