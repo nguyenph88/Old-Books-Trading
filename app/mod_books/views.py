@@ -13,7 +13,8 @@ from flask import Blueprint, request, render_template, flash, g, session, redire
 from werkzeug import check_password_hash, generate_password_hash
 from flask.ext.login import login_required
 
-from app import db, lm, do_qsort_swap
+from app import db, lm
+from app.mod_books.constants import do_qsort_swap
 from app.mod_users.models import User
 from app.mod_books.models import Book
 from datetime import datetime
@@ -58,7 +59,7 @@ def sachmoidang():
   books = Book.query.all()
   ltime = [b.thoigiandang for b in books]
   do_qsort_swap(ltime)
-  lbooks = [Book.query.filter_by(thoigiandang = l).first() for l in ltime] 
+  lbooks = [Book.query.filter_by(thoigiandang = l).first() for l in reversed(ltime)] 
   #return render_template("books/sachmoidang.html") 
   return render_template("books/sach-moi-dang.html", books=lbooks, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
