@@ -9,8 +9,7 @@
 #                - 500 error page
 # 
 #############################################################
-import os
-import sys
+import os, sys
 
 from flask import Flask, render_template, g, session
 from flask.ext.sqlalchemy import SQLAlchemy
