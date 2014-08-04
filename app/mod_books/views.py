@@ -19,6 +19,7 @@ from app.mod_users.models import User
 from app.mod_books.models import Book
 from datetime import datetime
 from app.mod_books.forms import searchBooks, lienHeMua
+from app.mod_badges.constants import listBadges
 
 ###################################
 ## Initial setup for this module ##
@@ -69,7 +70,8 @@ def thongtinsach(bookid):
     if book == None:
         flash('Book ' + bookid + ' not found.')
         return redirect(url_for('books.sachmoidang'))
-    return render_template('books/thong-tin-sach.html', book=book, is_auth = g.user.is_authenticated(), username = g.user.nickname)
+    return render_template('books/thong-tin-sach.html', book=book, listBadges=listBadges, badges=book.author.getBadgesList(), \
+                            is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/searchBooks/',  methods=['GET', 'POST'])
 def searchbooks():

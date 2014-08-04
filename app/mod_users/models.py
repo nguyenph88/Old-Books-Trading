@@ -27,6 +27,8 @@ class User(db.Model):
     about_me = db.Column(db.String(200))
     last_seen = db.Column(db.DateTime)
 
+    badges = db.Column(db.String(100))
+
     sosachdang = db.Column(db.SmallInteger, default=0)
     sosachdaban = db.Column(db.SmallInteger, default=0)
     sosachdamua = db.Column(db.SmallInteger, default=0)
@@ -43,6 +45,9 @@ class User(db.Model):
 
     def activationkey_generator(self):
       return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+
+    def getBadgesList(self):
+        return map(int,self.badges.split(','))
 
     def getStatus(self):
       return USER.STATUS[self.status]

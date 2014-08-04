@@ -2,24 +2,24 @@
 #############################################################
 # 
 # Author: Peter Nguyen
-# Last Update: 07/20/2014
+# Last Update: 08/03/2014
 # Description:   - Define how each route is handled
 #                - Handle all http/get/post requests
 # 
 #############################################################
-
 from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
-from flask.ext.login import login_required, login_user, logout_user
 
 from app import db, lm
 from app.mod_users.models import User
+
+from app.mod_badges.constants import listBadges
 
 ###################################
 ## Initial setup for this module ##
 ###################################
 
 # Register Blue print
-mod = Blueprint('info', __name__, url_prefix='/info')
+mod = Blueprint('badges', __name__, url_prefix='/badges')
 
 # Set the page that @login_required will redirect to
 lm.login_view = 'users.dangnhap'
@@ -52,27 +52,11 @@ def check_authenticate():
         is_authenticated = True
     return is_authenticated, usr
 
-@mod.route('/gioi-thieu/')
-def gioithieu():
-  is_authenticated, usr = check_authenticate()
-  return render_template("info/gioi-thieu.html", is_auth = is_authenticated, username=usr)
-
-@mod.route('/huong-dan-su-dung/')
-def huongdansudung():
-  is_authenticated, usr = check_authenticate()
-  return render_template("info/huong-dan-su-dung.html", is_auth = is_authenticated, username=usr)
-
-@mod.route('/bao-mat/')
-def baomat():
-  is_authenticated, usr = check_authenticate()
-  return render_template("info/bao-mat.html", is_auth = is_authenticated, username=usr)
-
-@mod.route('/lien-he/')
-def lienhe():
-  is_authenticated, usr = check_authenticate()
-  return render_template("info/lien-he.html", is_auth = is_authenticated, username=usr)
-
-@mod.route('/quyen-loi-trach-nhiem/')
-def quyenloitrachnhiem():
-  is_authenticated, usr = check_authenticate()
-  return render_template("info/quyen-loi-trach-nhiem.html", is_auth = is_authenticated, username=usr)
+@mod.route('/update/')
+def update():
+  g.user.badges = '1,2,3'
+  db.session.add(g.user)
+  db.session.commit()
+  flash(g.user.getBadgesList())
+  badges = g.user.getBadgesList()
+  return render_template("blank.html",badges=badges, listBadges=listBadges)

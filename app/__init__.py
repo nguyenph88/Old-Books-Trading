@@ -101,5 +101,8 @@ app.register_blueprint(infoModule)
 from app.mod_books.views import mod as booksModule
 app.register_blueprint(booksModule)
 
+from app.mod_badges.views import mod as badgesModule
+app.register_blueprint(badgesModule)
+
 # Commend this out if we are not manually create database in "shell.py"
 #db.create_all()

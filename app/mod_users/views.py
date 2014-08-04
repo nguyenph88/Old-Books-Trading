@@ -20,6 +20,7 @@ from app import db, lm, uf
 from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach, forgot
 from app.mod_users.models import User
 from app.mod_books.models import Book
+from app.mod_badges.constants import listBadges
 from datetime import datetime
 import string
 import random
@@ -137,7 +138,9 @@ def thanhvien(nickname):
     if user == None:
         flash(u'Thành viên ' + nickname + u' không tồn tại.')
         return redirect(url_for('index'))
-    return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), username = g.user.nickname, books=g.user.books)
+    return render_template('users/thanh-vien.html', user = user, is_auth = g.user.is_authenticated(), \
+                            username = g.user.nickname, books=g.user.books, \
+                            listBadges=listBadges, badges=g.user.getBadgesList())
 
 @mod.route('/thay-doi-thong-tin/', methods = ['GET', 'POST'])
 @login_required
