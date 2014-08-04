@@ -27,6 +27,7 @@ STATUS = {
   ACTIVE: 'active',
 }
 
+# list for forms
 listKhuVuc = [(u'Miền Nam', u'Miền Nam'), (u'Miền Trung', u'Miền Trung'), (u'Miền Bắc', u'Miền Bắc'), (u'Khác', u'Khác')]
 listNganhHoc = [(u'Công Nghệ Thông Tin', u'Công Nghệ Thông Tin'), (u'Cơ Khí', u'Cơ Khí'), (u'Điện Tử', u'Điện Tử'), (u'Khác', u'Khác')]
 listTheLoaiSach = [(u'Sách Giáo Khoa', u'Sách Giáo Khoa'), (u'Sách Tham Khảo', u'Sách Tham Khảo'), (u'Sách Giải', u'Sách Giải'), (u'Tài Liệu', u'Tài Liệu'), (u'Truyện', u'Truyện'), (u'Khác', u'Khác')]

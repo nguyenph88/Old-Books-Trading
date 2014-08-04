@@ -20,7 +20,7 @@ from app import db, lm, uf
 from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach, forgot
 from app.mod_users.models import User
 from app.mod_books.models import Book
-from app.mod_badges.constants import listBadges
+from app.mod_badges.constants import listBadges, categorizeEmail
 from datetime import datetime
 import string
 import random
@@ -114,8 +114,9 @@ def register():
   if form.validate_on_submit():
     # create an user instance not yet stored in the database
     user = User(nickname=form.nickname.data, fullname=form.fullname.data, email=form.email.data,\
-      password=generate_password_hash(form.password.data))
+      password=generate_password_hash(form.password.data), badges=categorizeEmail(form.email.data))
     # Insert the record in our database and commit it
+    flash(categorizeEmail(form.email.data))
     db.session.add(user)
     db.session.commit()
 
@@ -123,7 +124,7 @@ def register():
     session['user_id'] = user.id
     session['username'] = user.nickname
     #send email to verify
-    follower_notification(g.user, 'follower_email.html')
+    follower_notification(form, 'follower_email.html')
     # flash will display a message to the user
     # flash('Thanks for registering')
     # redirect user to the 'home' method of the user module.

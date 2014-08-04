@@ -19,5 +19,5 @@ def send_email(subject, sender, recipients, html_body):
 def follower_notification(follow, file):
     send_email('chuyentay.vn',
         ADMINS[0],
-        [follow.email],
+        [follow.email.data],
         render_template(file, follower = follow))

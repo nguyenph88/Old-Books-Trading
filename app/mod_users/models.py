@@ -36,11 +36,12 @@ class User(db.Model):
     def avatar(self, size):
         return 'http://www.gravatar.com/avatar/' + md5(self.email).hexdigest() + '?d=mm&s=' + str(size)
 
-    def __init__(self, nickname=None, fullname=None, email=None, password=None):
+    def __init__(self, nickname=None, fullname=None, email=None, password=None, badges=None):
       self.nickname = nickname
       self.fullname = fullname
       self.email = email
       self.password = password
+      self.badges = badges
       self.activation_code = self.activationkey_generator()
 
     def activationkey_generator(self):
