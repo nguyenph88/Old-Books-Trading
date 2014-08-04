@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <!--/#page-breadcrumb-->
+
+    <section id="about-company" class="padding-top wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 text-center">
+                        <h2>Nhập Email của bạn</h2>	                      
+	                      <form method="POST" action="." class="form">
+                            {{ form.csrf_token }}
+                            {{ form.hidden_tag() }}
+                            <center>
+                            <table style="width:300px">
+                            <tr>
+                              <td><h2>Địa chỉ email:</h2></td>
+                              <td>{{ form.email }} </td>
+                              {% for error in form.email.errors %}
+                              <span style="color: red;">[{{error}}]</span>
+                              {% endfor %}<br>
+                            </tr>
+                            </table>
+                            </center> 
+	                        <input type="submit" value="Tiếp">
+	                      </form>
+	                      
+
+                </div>
+                <div class="col-sm-6 text-center">
+                  <img src="../../static/images/login.png" class="margin-bottom" alt="" height="500px"></img>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/#about-company-->
+
+{% endblock %}

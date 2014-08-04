@@ -35,23 +35,7 @@ lm.init_app(app)
 # Upload Folder
 uf = app.config['UPLOAD_FOLDER']
 
-#function that sends out email
-def send_async_email(msg):
-    mail.send(msg)
 
-
-def send_email(subject, sender, recipients, html_body):
-
-    mmsg = Message(subject, sender = sender, recipients = recipients)
-    mmsg.html = html_body
-    thr = Thread(target = send_async_email, args = [mmsg])
-    thr.start()
-
-def follower_notification(follower):
-    send_email('chuyentay.vn',
-        ADMINS[0],
-        ['hocdb@student.ptithcm.edu.vn'],
-        render_template("follower_email.html", follower = follower))
 ############################
 ### Configure Secret Key ###
 ############################

@@ -13,15 +13,16 @@ from flask import Blueprint, request, render_template, flash, g, session, redire
 from flask.ext.login import login_required, login_user, logout_user
 from werkzeug import check_password_hash, generate_password_hash, secure_filename
 from flask_wtf.file import FileField
-
+from app.mod_emails.views import follower_notification
 from datetime import datetime
 from flask.ext.babel import Babel
-from app import db, lm, uf, follower_notification
-from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach
+from app import db, lm, uf
+from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach, forgot
 from app.mod_users.models import User
 from app.mod_books.models import Book
 from datetime import datetime
-
+import string
+import random
 ###################################
 ## Initial setup for this module ##
 ###################################
@@ -121,7 +122,7 @@ def register():
     session['user_id'] = user.id
     session['username'] = user.nickname
     #send email to verify
-    follower_notification(g.user)
+    follower_notification(g.user, 'follower_email.html')
     # flash will display a message to the user
     # flash('Thanks for registering')
     # redirect user to the 'home' method of the user module.
@@ -220,7 +221,7 @@ def sachdadangpublic(nickname):
 @mod.route('/sua-thong-tin-sach/<bookid>/', methods = ['GET', 'POST'])
 @login_required
 def suathongtinsach(bookid):
-  form = DangSach(request.form)
+  form = DangSach()
   book = Book.query.get(bookid)
 
   # Check if the book is not owned by user, then redirect to users.home
@@ -254,6 +255,11 @@ def suathongtinsach(bookid):
           book.image = filename
         '''
         # Overwrite the current book in database
+        validatefile = request.files['imageFile']
+        if validatefile and allowed_file(validatefile.filename):
+          filename = secure_filename(form.imageFile.data.filename)
+          form.imageFile.data.save(uf + filename)
+          book.image = filename
         db.session.add(book)
         db.session.commit()
         
@@ -302,7 +308,7 @@ def dangxuat():
 def send_email():
  #user = User.query.filter_by(nickname = nickname).first()
     # ...
-    follower_notification(g.user)
+    follower_notification(g.user, 'follower_email.html')
     flash('chuyentay.com has been send email co your email adress, please visit to verify your account')
     return redirect(url_for('users.home'))
 
@@ -315,3 +321,23 @@ def verify(nickname):
   db.session.commit()
   flash('verify account ' + user.activation_code)
   return redirect(url_for('users.home'))
+
+
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
+@mod.route('/dang-nhap/forgot')
+def changepass():
+    form = forgot()
+    if form.validate_on_submit():
+      user = User.query.filter_by(email = form.email.data).first()
+      if user:
+        flash(u"chuyentay.com không có email này")
+        return render_template("users/forgot.html",  form=form )
+        #follower_notification(user)
+      else:
+        flash(u"chuyentay.com không có email này")
+        return render_template("users/forgot.html",  form=form )
+    flash('chuyentay.com has been send email co your email adress, please visit to verify your account')
+    return render_template("users/forgot.html",  form=form )

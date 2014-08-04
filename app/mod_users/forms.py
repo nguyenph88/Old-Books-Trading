@@ -66,6 +66,11 @@ class DangSach(Form):
 
 
 
+class forgot(Form):
+  email = TextField('Email address', [Email()])
+
+
+
 
 
 
