@@ -16,7 +16,7 @@ class Badges:
 		self.imgName = img
 
 # list of badges, remember to add to categorizeEmail if added more school
-listBadges = [Badges('NULL','NULL'),
+listBadges = [Badges('NULL','null.png'),
 			  Badges(u'Sinh Viên của Đại Học Khoa Học Tự Nhiên TPHCM','dhkhtntphcm.png'),
 			  Badges(u'Sinh Viên của Đại Học Bách Khoa TPHCM', 'dhbktphcm.png'),
 			  Badges(u'Sinh Viên của Đại Học Kinh Tế TPHCM', 'dhkttphcm.png'),
@@ -49,4 +49,5 @@ def categorizeEmail(email):
     	return '8'
     elif loai == 'student.ptithcm.edu.vn':
     	return '9'
-	return ''
+    else:
+	    return '0'

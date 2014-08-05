@@ -1,0 +1,8 @@
+{% for category, msg in get_flashed_messages(with_categories=true) %}
+  <p class="message flash-{{ category }}" style="color:red">{{ msg }}</p>
+{% endfor %}
+
+{% for badge in badges %}
+	<h2>{{listBadges[badge].name}}</h2>
+{% endfor %}
+

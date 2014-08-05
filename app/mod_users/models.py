@@ -48,7 +48,10 @@ class User(db.Model):
       return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
 
     def getBadgesList(self):
-        return map(int,self.badges.split(','))
+        if ',' not in self.badges:
+          return [int(self.badges),0]
+        else:
+          return map(int,self.badges.split(','))
 
     def getStatus(self):
       return USER.STATUS[self.status]

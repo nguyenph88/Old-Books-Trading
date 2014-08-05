@@ -116,7 +116,6 @@ def register():
     user = User(nickname=form.nickname.data, fullname=form.fullname.data, email=form.email.data,\
       password=generate_password_hash(form.password.data), badges=categorizeEmail(form.email.data))
     # Insert the record in our database and commit it
-    flash(categorizeEmail(form.email.data))
     db.session.add(user)
     db.session.commit()
 
