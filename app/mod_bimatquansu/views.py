@@ -49,13 +49,18 @@ def check_authenticate():
         is_authenticated = True
     return is_authenticated, usr
 
-@mod.route('/update/')
-def update():
-  g.user.badges = '1,2,3'
-  db.session.add(g.user)
+####################################
+# Set new badge to a specific user #
+####################################
+@mod.route('/set-badge/')
+def setbadge():
+  nickname = 'hello'
+  user = User.query.filter_by(nickname = nickname).first()
+  user.setNewBadge(7)
+  db.session.add(user)
   db.session.commit()
-  flash(g.user.getBadgesList())
-  badges = g.user.getBadgesList()
+  flash(user.getBadgesList())
+  badges = user.getBadgesList()
   return render_template("/bimatquansu/blank.html",badges=badges, listBadges=listBadges)
 
 ##########################################################
