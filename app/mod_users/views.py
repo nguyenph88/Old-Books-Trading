@@ -13,17 +13,17 @@ from flask import Blueprint, request, render_template, flash, g, session, redire
 from flask.ext.login import login_required, login_user, logout_user
 from werkzeug import check_password_hash, generate_password_hash, secure_filename
 from flask_wtf.file import FileField
-from app.mod_emails.views import follower_notification
+from app.mod_emails.views import follower_notification, reset_password
 from datetime import datetime
 from flask.ext.babel import Babel
-from app import db, lm, uf
-from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach, forgot
-from app.mod_users.models import User
+from app import db, lm, uf, id_generator
+from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach, forgot, getkey
 from app.mod_books.models import Book
 from app.mod_badges.constants import listBadges, categorizeEmail
 from datetime import datetime
-import string
-import random
+from app.mod_users.models import User
+from app.mod_users import constants as USER
+import os
 ###################################
 ## Initial setup for this module ##
 ###################################
@@ -84,23 +84,27 @@ def dangnhap():
     user = User.query.filter_by(email=form.email.data).first()
     # we use werzeug to validate user's password
     if user and check_password_hash(user.password, form.password.data):
+      if user.status == 2 :
       # the session can't be modified as it's signed, 
       # it's a safe place to store the user id
-      session['user_id'] = user.id
-      session['username'] = user.nickname
-      session['remember_me'] = form.remember_me.data
+        session['user_id'] = user.id
+        session['username'] = user.nickname
+        session['remember_me'] = form.remember_me.data
 
       # Get the remember_me option and save it to user, then empty it 
-      remember_me = False
-      if 'remember_me' in session:
+        remember_me = False
+        if 'remember_me' in session:
           remember_me = session['remember_me']
           session.pop('remember_me', None)
       
       # log the user in using Flask-Login
-      login_user(user, remember_me)
+        login_user(user, remember_me)
 
-      flash(u'Đăng nhập thành công. Xin chào %s' % user.fullname)
-      return redirect(url_for('users.home'))
+        flash(u'Đăng nhập thành công. Xin chào %s' % user.fullname)
+        return redirect(url_for('users.home'))
+      else :
+        flash(u'Tài Khoan Của Bạn Chưa Xác Thực', 'error-message')
+        return render_template("users/login.html", form=form)
     flash(u'Sai Email hoặc Mật khẩu', 'error-message')
   return render_template("users/login.html", form=form)
 
@@ -116,6 +120,7 @@ def register():
     user = User(nickname=form.nickname.data, fullname=form.fullname.data, email=form.email.data,\
       password=generate_password_hash(form.password.data), badges=categorizeEmail(form.email.data))
     # Insert the record in our database and commit it
+    user.status =0
     db.session.add(user)
     db.session.commit()
 
@@ -185,7 +190,7 @@ def dangsach():
     validatefile = request.files['imageFile']
     # save the image only when user chooses a file
     if validatefile and allowed_file(validatefile.filename):
-      filename = secure_filename(form.imageFile.data.filename)
+      filename = id_generator() +  secure_filename(form.imageFile.data.filename)
       form.imageFile.data.save(uf + filename)
     else:
       flash('please choose image File')
@@ -203,7 +208,7 @@ def dangsach():
     db.session.add(g.user)
     db.session.commit()
     
-    flash(u'Đăng Sách Thành Công!')
+    flash(u'Đăng Sách Thành Công! ' )
     return redirect(url_for('users.home'))
   return render_template("users/dang-sach.html", form=form, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
@@ -260,7 +265,8 @@ def suathongtinsach(bookid):
         # Overwrite the current book in database
         validatefile = request.files['imageFile']
         if validatefile and allowed_file(validatefile.filename):
-          filename = secure_filename(form.imageFile.data.filename)
+          os.remove(uf + book.image)
+          filename = id_generator() + secure_filename(form.imageFile.data.filename)
           form.imageFile.data.save(uf + filename)
           book.image = filename
         db.session.add(book)
@@ -290,10 +296,13 @@ def xoasach(bookid):
     return redirect(url_for('users.home'))
   else:
     # remove the book from list
+    
+    os.remove(uf + book.image)
     db.session.delete(book)
     # Update number of books in db of that user
     g.user.sosachdang = g.user.sosachdang - 1
     db.session.add(g.user)
+
     db.session.commit()
 
     flash(u"Bạn da xoa sach")
@@ -304,6 +313,7 @@ def xoasach(bookid):
 def dangxuat():
   logout_user()
   session.clear()
+  g.user = None
   return redirect(url_for('users.dangnhap'))
 
 #test send email
@@ -311,8 +321,10 @@ def dangxuat():
 def send_email():
  #user = User.query.filter_by(nickname = nickname).first()
     # ...
-    follower_notification(g.user, 'follower_email.html')
-    flash('chuyentay.com has been send email co your email adress, please visit to verify your account')
+    #follower_notification(g.user, 'follower_email.html')
+    #flash('chuyentay.com has been send email co your email adress, please visit to verify your account')
+    #return redirect(url_for('users.home'))
+    flash('verify account ' + g.user.password)
     return redirect(url_for('users.home'))
 
 
@@ -320,27 +332,48 @@ def send_email():
 @mod.route('/verify/<nickname>')
 def verify(nickname):
   user = User.query.filter_by(nickname = nickname).first()
-  user.activation_code = '1'
+  user.status = 2
+  db.session.add(user)
   db.session.commit()
-  flash('verify account ' + user.activation_code)
+  flash('account  ' + USER.STATUS[user.status])
   return redirect(url_for('users.home'))
 
 
-def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
 
 
-@mod.route('/dang-nhap/forgot')
+@mod.route('/dang-nhap/forgot/', methods = ['GET', 'POST'])
 def changepass():
     form = forgot()
+    form1 = getkey()
     if form.validate_on_submit():
       user = User.query.filter_by(email = form.email.data).first()
-      if user:
-        flash(u"chuyentay.com không có email này")
+      if user :
+          keys = id_generator()
+          session['key'] = keys
+          session['email'] = user.email
+          reset_password(form, 'resetpass.html', keys)
+          k = "o"       
+          flash('chuyentay.com has been send email co your email adress, please visit to change your password')
+          #form1 = getkey()
+          return render_template("users/getkey.html",  form=form1)
+      else :
+        flash('email nay khong co trong he thong')
         return render_template("users/forgot.html",  form=form )
-        #follower_notification(user)
-      else:
-        flash(u"chuyentay.com không có email này")
-        return render_template("users/forgot.html",  form=form )
-    flash('chuyentay.com has been send email co your email adress, please visit to verify your account')
-    return render_template("users/forgot.html",  form=form )
+
+    if form1.validate_on_submit():
+        email = session['email']
+        keys = session['key']
+        user = User.query.filter_by(email = email).first()
+        if form1.key.data ==  session['key'] :
+          user.password = generate_password_hash(form1.key.data)
+          db.session.add(user)
+          db.session.commit()
+          flash('ban da thay doi mat khau thanh cong'+ session['key'])
+          return redirect(url_for('users.home')) 
+        else :
+          flash('key khong hop le'+ session['key'] + user.password)
+          return redirect(url_for('users.home')) 
+
+    else :
+      return render_template("users/forgot.html",  form=form )
+

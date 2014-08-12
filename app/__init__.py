@@ -17,6 +17,8 @@ from flask.ext.login import LoginManager, login_required
 from flask.ext.mail import Mail, Message
 from config import ADMINS
 from threading import Thread
+import string
+import random
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -38,6 +40,10 @@ uf = app.config['UPLOAD_FOLDER']
 ############################
 ### Configure Secret Key ###
 ############################
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 def install_secret_key(app, filename='secret_key'):
     """Configure the SECRET_KEY from a file
     in the instance directory.

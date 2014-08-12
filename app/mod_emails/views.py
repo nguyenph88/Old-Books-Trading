@@ -4,7 +4,7 @@ from config import ADMINS
 from threading import Thread
 from app import mail
 from flask.ext.mail import Mail, Message
-
+ 
 #cerate new thread
 def send_async_email(msg):
     mail.send(msg)
@@ -21,3 +21,18 @@ def follower_notification(follow, file):
         ADMINS[0],
         [follow.email.data],
         render_template(file, follower = follow))
+
+
+def reset_password(follow, file, keys):
+    send_email('chuyentay.vn',
+        ADMINS[0],
+        [follow.email.data],
+        render_template(file, key = keys))
+
+def buy_book(buyer, file, diaDiem, thoiGian, lienHe, book, sell, sendto):
+    send_email('chuyentay.vn',
+        ADMINS[0],
+        [sendto.email],
+        render_template(file, buyer = buyer, diadiem = diaDiem, thoigian = thoiGian, lienhe = lienHe, books = book, seller = sell))
+
+

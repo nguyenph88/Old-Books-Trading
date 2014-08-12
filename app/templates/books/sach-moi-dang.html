@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+
+
     <section id="portfolio">
         <div class="container">
             <div class="row">
@@ -12,32 +14,36 @@
                     <li><a class="btn btn-default" href="#" data-filter=".logos">Logos</a></li>
                     <li><a class="btn btn-default" href="#" data-filter=".mobile">Mobile</a></li>
                     <li><a class="btn btn-default" href="#" data-filter=".mockup">Mockup</a></li>
-                </ul><!--/#portfolio-filter-->
-                    
-                <div class="portfolio-items">
-                	{% for book in books %}
-                    <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
+                </ul><!--/#portfolio-filter--> 
+                <div class="portfolio-items" >
+                	{% for i in range(first -2,first) %}
+
+                     <div id="{{books[i].id}}"  class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos">
                         <div class="portfolio-wrapper" style="padding: 3px; margin: 5px;">
                             <div class="portfolio-single">
                                 <div class="portfolio-thumb" style="border: 1px dotted gray;">
-                                    <!-- <img src="/static/images/books/{{ book.image }}" class="img-responsive" alt="" height="300px"> -->
-                                    <img src="/static/images/books/{{ book.image }}" alt="" height="300px">
+                                   
+                                    <img src="/static/images/books/{{ books[i].image }}" alt="" height="300px">
                                 </div>
                                 <div class="portfolio-view">
                                     <ul class="nav nav-pills">
-                                        <li><a href="{{ url_for('books.thongtinsach', bookid=book.id ) }}" title="Thông Tin Chi Tiết"><i class="fa fa-link"></i></a></li>
-                                        <li><a href="/static/images/books/{{ book.image }}" data-lightbox="example-set" title="Phóng To"><i class="fa fa-eye"></i></a></li>
+     
+
+
+                                        <li><a href="{{ url_for('books.thongtinsach', bookid=books[i].id ) }}" title="Thông Tin Chi Tiết">
+                                            <i class="fa fa-link"></i></a></li>
+                                        <li><a href="/static/images/books[i]/{{ books[i].image }}" data-lightbox="example-set" title="Phóng To"><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="portfolio-info">
                                 <table class="portfolio-info-table">
                                     <tr>
-                                        <td colspan="2" style="font-size: 18px; padding-top: 2px; padding-bottom: 2px;"><a href="{{ url_for('books.thongtinsach', bookid=book.id ) }}">{{ book.get_short_title() }}</a></td>
+                                        <td colspan="2" style="font-size: 18px; padding-top: 2px; padding-bottom: 2px;"><a href="{{ url_for('books.thongtinsach', bookid=books[i].id ) }}">{{ books[i].get_short_title() }}</a></td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-bottom: 2px; text-overflow: ellipsis; overflow: hidden;"><a href="{{ url_for('users.thanhvien', nickname=book.author.nickname ) }}"><img src="{{ book.author.avatar(20) }}"> {{ book.author.nickname }}</a></td>
-                                        <td style="font-size: 18px; color: #4D70DB; font-weight:bold; padding-bottom: 2px;">$ {{ book.giaban }}</td>
+                                        <td style="padding-bottom: 2px; text-overflow: ellipsis; overflow: hidden;"><a href="{{ url_for('users.thanhvien', nickname=books[i].author.nickname ) }}"><img src="{{ books[i].author.avatar(20) }}"> {{ books[i].author.nickname }}</a></td>
+                                        <td style="font-size: 18px; color: #4D70DB; font-weight:bold; padding-bottom: 2px;">$ {{ books[i].giaban }}</td>
                                     </tr>
                                 </table>
                                 
@@ -48,8 +54,17 @@
               	</div>
                 <div class="portfolio-pagination">
                     <ul class="pagination">
-                      
-                      <li><a href="next">next</a></li>
+               
+                      <li><a href="Pback">left</a></li>
+           
+                      {% for num in range(length) %}
+
+                    
+                      <li><a href="P{{num}}">{{num + 1}}</a></li>
+                     
+                       {% endfor %}
+                      <li><a href="Pnext">right</a></li>
+          
                     </ul>
                 </div>
             </div>
