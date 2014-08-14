@@ -9,12 +9,12 @@
 #############################################################
 
 
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
+from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for, app
 from flask.ext.login import login_required, login_user, logout_user
 from werkzeug import check_password_hash, generate_password_hash, secure_filename
 from flask_wtf.file import FileField
 from app.mod_emails.views import follower_notification, reset_password
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask.ext.babel import Babel
 from app import db, lm, uf, id_generator
 from app.mod_users.forms import RegisterForm, LoginForm, EditProfileForm, EditPasswordForm, DangSach, forgot, getkey
@@ -24,6 +24,7 @@ from datetime import datetime
 from app.mod_users.models import User
 from app.mod_users import constants as USER
 import os
+
 ###################################
 ## Initial setup for this module ##
 ###################################
@@ -98,7 +99,7 @@ def dangnhap():
           session.pop('remember_me', None)
       
       # log the user in using Flask-Login
-        login_user(user, remember_me)
+        login_user(user, remember = remember_me)
 
         flash(u'Đăng nhập thành công. Xin chào %s' % user.fullname)
         return redirect(url_for('users.home'))
@@ -121,12 +122,17 @@ def register():
       password=generate_password_hash(form.password.data), badges=categorizeEmail(form.email.data))
     # Insert the record in our database and commit it
     user.status =0
-    db.session.add(user)
-    db.session.commit()
+    try:
+      db.session.add(user)
+      db.session.commit()
+    except:
+      db.session.rollback()
+      flash('Email hoac nickname bi trung')
+      return render_template("users/register.html", form=form)
 
-    # Log the user in, as he now has an id and name
-    session['user_id'] = user.id
-    session['username'] = user.nickname
+    # Log the user in, as he now has an id and name---> allow login when verify already, so not set the session
+    #session['user_id'] = user.id
+    #session['username'] = user.nickname
     #send email to verify
     follower_notification(form, 'follower_email.html')
     # flash will display a message to the user
@@ -312,8 +318,6 @@ def xoasach(bookid):
 @login_required
 def dangxuat():
   logout_user()
-  session.clear()
-  g.user = None
   return redirect(url_for('users.dangnhap'))
 
 #test send email

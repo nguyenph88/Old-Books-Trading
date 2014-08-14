@@ -17,8 +17,8 @@ from flask.ext.login import LoginManager, login_required
 from flask.ext.mail import Mail, Message
 from config import ADMINS
 from threading import Thread
-import string
-import random
+import string, random
+from datetime import timedelta
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -35,7 +35,7 @@ lm.init_app(app)
 
 # Upload Folder
 uf = app.config['UPLOAD_FOLDER']
-
+app.permanent_session_lifetime = timedelta(minutes=5)
 
 ############################
 ### Configure Secret Key ###
@@ -73,7 +73,7 @@ if not app.config['DEBUG']:
 def check_authenticate():
     usr = ""
     is_authenticated = False
-    if 'user_id' in session:
+    if 'user_id' in session:   
         usr = session['username']
         is_authenticated = True
     return is_authenticated, usr
@@ -82,6 +82,7 @@ def check_authenticate():
 @app.route('/')
 def index():
     """Just a generic index page to show."""
+    session.permanent = True
     is_authenticated, usr = check_authenticate()
     return render_template("index.html", is_auth=is_authenticated, username=usr)
 

@@ -57,6 +57,7 @@ def before_request():
 
 
 @mod.route('/')
+@login_required
 def sachmoidang():
   books = Book.query.all()
   ltime = [b.thoigiandang for b in books]
@@ -68,6 +69,7 @@ def sachmoidang():
 
 num =0
 @mod.route('/<bookid>')
+@login_required
 def thongtinsach(bookid):
   if 'P' in bookid:
     global num
@@ -104,6 +106,7 @@ nums =0
 lbooks = []
 @mod.route('/searchBooks/',  methods=['GET', 'POST'])
 @mod.route('/searchBooks/<bookid>')
+@login_required
 def searchbooks(bookid="foo"):
   global nums
   global lbooks
@@ -140,9 +143,11 @@ def searchbooks(bookid="foo"):
     flash('Book ' + bookid  )
     return render_template("books/searchBooks.html", form=form, books=g.x, is_auth = g.user.is_authenticated(), username = g.user.nickname, length = leng, first =nums)
   else :
-    return render_template('books/searchBooks.html',  form=form, length = 0)
+    
+    return render_template('books/searchBooks.html',  form=form, length = 0, is_auth = g.user.is_authenticated(), username = g.user.nickname)
 
 @mod.route('/lien-he-mua/<bookid>/',  methods=['GET', 'POST'])
+@login_required
 def lienhemua(bookid):
     book = Book.query.filter_by(id = bookid).first()
     form = lienHeMua()
