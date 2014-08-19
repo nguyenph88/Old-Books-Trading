@@ -47,8 +47,8 @@ MAIL_SERVER = 'smtp.googlemail.com'
 MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
-MAIL_USERNAME = 'taychuyen822@gmail.com'
-MAIL_PASSWORD = '123456789Z7'
+MAIL_USERNAME = 'chuyentay.com@gmail.com'
+MAIL_PASSWORD = 'chienthan'
 
 # administrator list
-ADMINS = ['taychuyen822@gmail.com']
+ADMINS = ['chuyentay.com@gmail.com']

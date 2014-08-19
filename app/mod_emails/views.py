@@ -17,10 +17,12 @@ def send_email(subject, sender, recipients, html_body):
     thr.start()
 # function that sends out email
 def follower_notification(follow, file):
+    nickname = follow.nickname.data
+    nicknameFM = nickname.replace(" ", "%")
     send_email('chuyentay.vn',
         ADMINS[0],
         [follow.email.data],
-        render_template(file, follower = follow))
+        render_template(file, follower = nicknameFM))
 
 
 def reset_password(follow, file, keys):

@@ -70,6 +70,7 @@ def before_request():
 @login_required
 def home():
   #return render_template("users/profile.html", user=g.user, is_auth = g.user.is_authenticated(), username=g.user.nickname)
+  
   return redirect(url_for('users.thanhvien', nickname=g.user.nickname))
 
 @mod.route('/dang-nhap/', methods=['GET', 'POST'])
@@ -134,6 +135,7 @@ def register():
     #session['user_id'] = user.id
     #session['username'] = user.nickname
     #send email to verify
+    
     follower_notification(form, 'follower_email.html')
     # flash will display a message to the user
     # flash('Thanks for registering')
@@ -335,7 +337,8 @@ def send_email():
 #verify from user's email
 @mod.route('/verify/<nickname>')
 def verify(nickname):
-  user = User.query.filter_by(nickname = nickname).first()
+  nicknameFM = nickname.replace("%", " ")
+  user = User.query.filter_by(nickname = nicknameFM).first()
   user.status = 2
   db.session.add(user)
   db.session.commit()
@@ -355,6 +358,7 @@ def changepass():
           keys = id_generator()
           session['key'] = keys
           session['email'] = user.email
+          
           reset_password(form, 'resetpass.html', keys)
           k = "o"       
           flash('chuyentay.com has been send email co your email adress, please visit to change your password')
