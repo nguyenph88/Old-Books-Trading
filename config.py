@@ -14,7 +14,7 @@ _basedir = os.path.abspath(os.path.dirname(__file__))
 DEBUG = False
 
 # Contact email
-ADMINS = frozenset(['peter.nguyen.csb@gmail.com'])
+ADMINS = frozenset(['peterzzzzq233@gmail.com'])
 #  Will be used to sign cookies. Change it and all your users will have to login again
 SECRET_KEY = 'conCOBEbe!@#anthit456conCHIMBUbu'
 
