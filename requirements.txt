@@ -2,7 +2,7 @@ Flask==0.10.1
 Flask-Login==0.2.11
 Flask-SQLAlchemy==1.0
 Flask-WTF==0.10.0
-Jinja2==2.7.3
+Jinja2==2.11.3
 MarkupSafe==0.23
 PAM==0.4.2
 Pillow==2.3.0
